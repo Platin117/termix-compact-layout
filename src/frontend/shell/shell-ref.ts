@@ -1,6 +1,6 @@
 import type { useShellController } from "@termix-ssh/plugin-sdk/ui";
 
-type ShellController = ReturnType<typeof useShellController>;
+export type ShellController = ReturnType<typeof useShellController>;
 
 /**
  * The live shell, reachable from outside React.

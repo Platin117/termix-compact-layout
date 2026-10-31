@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.1
+
+### Fixed
+
+- The error strip across the bottom of the window, which 1.6.0 introduced. `hosts.panel` hands its contributions the host list and a callback for when they change it; the slot was mounted without either, so Import and Export had nothing to export and threw, and core drew its error state full width. The list now comes from the shell, and a change reloads from the server.
+
 ## 1.6.0
 
 ### Fixed

@@ -7,7 +7,7 @@ import {
 } from "@termix-ssh/plugin-sdk/ui";
 import { BottomBar } from "../shell/BottomBar";
 import { Rail } from "../shell/Rail";
-import { setShellRef } from "../shell/shell-ref";
+import { setShellRef, type ShellController } from "../shell/shell-ref";
 import { SimplePalette } from "../shell/SimplePalette";
 import { TopBar } from "../shell/TopBar";
 
@@ -45,7 +45,7 @@ export function CompactLayout() {
         </div>
       </div>
       <SimplePalette />
-      <OverlaySlots />
+      <OverlaySlots shell={shell} />
     </div>
   );
 }
@@ -61,15 +61,25 @@ export function CompactLayout() {
  * stock layout's host sidebar, but this layout has no such panel and its
  * host cards carry the buttons, so it is mounted at the root instead.
  *
- * A contribution that draws inline rather than in a portal would land in a
- * zero-size box and be clipped. None does today; the alternative is dialogs
- * that never open.
+ * `hosts.panel` has a contract: its contributions are handed the host list
+ * and a callback for when they change it. Mounting the slot without them
+ * left Import and Export without a list to export and it threw, which core
+ * caught and drew as an error strip across the bottom of the window. The
+ * list comes from the shell, and a change is answered by reloading from the
+ * server rather than trusting what was handed back, so the shell's own copy
+ * stays the one everything else reads.
  */
-function OverlaySlots() {
+function OverlaySlots({ shell }: { shell: ShellController }) {
   return (
     <div className="contents">
       <ComponentSlot slotId="shell.overlay" />
-      <ComponentSlot slotId="hosts.panel" />
+      <ComponentSlot
+        slotId="hosts.panel"
+        props={{
+          hosts: shell.hosts.list,
+          onHostsChanged: () => void shell.hosts.reload(),
+        }}
+      />
     </div>
   );
 }
