@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.0
+
+### Added
+
+- Appearance now holds the theme, the accent colour, the text size and the language. Core's `LookSettings` is only the layout picker and the admin defaults; the controls the stock layout puts beside them are not part of the plugin API, so they are rebuilt from the pieces that are.
+- A Server page for admins: sign-ups, password resets, the second factor, the HTTP to HTTPS redirect, plugin developer mode, the session timeout and the log level. Core ships the endpoints for the other ten admin pages but no components for any of them, so users, roles, sessions, API keys, the audit log, branding, the database, SSL, host defaults and updates are still only in the stock layout.
+
+### Fixed
+
+- The "Add host" button on an empty home screen. Core's `EmptyState` renders its action only at "guided" verbosity, so on the Simple preset the button appeared only once a host existed to put one in the header.
+
 ## 1.4.0
 
 ### Changed

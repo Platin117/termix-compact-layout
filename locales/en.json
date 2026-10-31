@@ -147,7 +147,8 @@
     "pluginSaveFailed": "Could not save the settings",
     "pluginLoadFailed": "Could not load the settings",
     "pluginOff": "{{name}} is not running right now.",
-    "rail": "Sidebar"
+    "rail": "Sidebar",
+    "server": "Server"
   },
   "plugin": {
     "name": "Compact Layout",
@@ -167,5 +168,36 @@
   "theme": {
     "termiusDark": "Termius Dark",
     "termiusLight": "Termius Light"
+  },
+  "look": {
+    "theme": "Theme",
+    "accent": "Accent colour",
+    "accentCustom": "Custom accent colour, as a hex value",
+    "fontSize": "Text size",
+    "language": "Language"
+  },
+  "server": {
+    "loadFailed": "Could not load the server settings.",
+    "registration": "Allow sign-ups",
+    "registrationHint": "Anyone who can reach this server can create an account.",
+    "passwordReset": "Allow password resets",
+    "passwordResetHint": "The reset code is written to the server log.",
+    "secondFactor": "Always ask for a second factor",
+    "secondFactorHint": "Also after SSO and LDAP, not only after a password.",
+    "forceHttps": "Redirect HTTP to HTTPS",
+    "forceHttpsHint": "Only works when Termix serves HTTPS itself.",
+    "developerMode": "Plugin developer mode",
+    "developerModeHint": "Lets admins install a .tmxplug file without the registry checks.",
+    "developerModeSigned": "This server only accepts signed plugins, so developer mode cannot be turned on.",
+    "sessionTimeout": "Session timeout",
+    "sessionTimeoutHint": "Between 1 and 720 hours.",
+    "hours": "hours",
+    "logLevel": "Log level",
+    "log": {
+      "debug": "Debug",
+      "info": "Info",
+      "warn": "Warn",
+      "error": "Error"
+    }
   }
 }

@@ -44,19 +44,20 @@ export function HomeTab() {
   const addHost = () => requestManage({ kind: "host", hostId: null });
 
   if (hosts.loaded && hosts.list.length === 0) {
+    // EmptyState drops `hint` and `action` at "minimal" verbosity, so the
+    // button is rendered beside it rather than through it: with no hosts,
+    // adding one is the only thing this screen is for.
     return (
-      <div className="flex flex-1 items-center justify-center p-6">
+      <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6">
         <EmptyState
           icon={Server}
           title={t("home.emptyTitle")}
           hint={t("home.emptyHint")}
-          action={
-            <Button size="sm" onClick={addHost}>
-              <Plus className="size-3.5" />
-              {t("home.addHost")}
-            </Button>
-          }
         />
+        <Button size="sm" onClick={addHost}>
+          <Plus className="size-3.5" />
+          {t("home.addHost")}
+        </Button>
       </div>
     );
   }

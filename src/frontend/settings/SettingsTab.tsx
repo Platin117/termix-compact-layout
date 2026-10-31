@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { PanelLeft, Palette, Puzzle, UserRound } from "lucide-react";
+import { PanelLeft, Palette, Puzzle, ServerCog, UserRound } from "lucide-react";
 import {
   AuthEnrollmentSections,
   Button,
-  LookSettings,
   PluginIcon,
   hasVisibleFields,
   pluginName,
@@ -12,8 +11,10 @@ import {
   type PluginSummary,
 } from "@termix-ssh/plugin-sdk/ui";
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
+import { AppearanceSettings } from "./AppearanceSettings";
 import { PluginSettingsForm } from "./PluginSettingsForm";
 import { RailSettings } from "./RailSettings";
+import { ServerSettings } from "./ServerSettings";
 
 interface Page {
   id: string;
@@ -62,6 +63,15 @@ export function SettingsTab({ section }: { section?: string }) {
       label: t("settings.account"),
       icon: <UserRound className="size-3.5" />,
     },
+    ...(shell.isAdmin
+      ? [
+          {
+            id: "server",
+            label: t("settings.server"),
+            icon: <ServerCog className="size-3.5" />,
+          },
+        ]
+      : []),
     ...pluginPages.map((plugin) => ({
       id: `feature:${plugin.id}`,
       label: pluginName(t, plugin),
@@ -118,10 +128,12 @@ export function SettingsTab({ section }: { section?: string }) {
           <h1 className="text-base font-semibold">{current.label}</h1>
 
           {current.id === "appearance" && (
-            <LookSettings isAdmin={shell.isAdmin} />
+            <AppearanceSettings isAdmin={shell.isAdmin} />
           )}
 
           {current.id === "rail" && <RailSettings />}
+
+          {current.id === "server" && shell.isAdmin && <ServerSettings />}
 
           {current.id === "account" && (
             <>
