@@ -1,0 +1,45 @@
+/*
+ * Termius Look, dark. A desaturated blue-grey shell with an azure accent:
+ * the rail sits darker than the content, cards sit a step lighter, and the
+ * terminal is the darkest surface on screen.
+ */
+.termius-dark {
+  --background: #1a212a;
+  --foreground: #e8edf3;
+  --card: #222b36;
+  --card-foreground: #e8edf3;
+  --popover: #222b36;
+  --popover-foreground: #e8edf3;
+  --primary: #5aa6ff;
+  --primary-foreground: #0f1620;
+  --secondary: #2b3642;
+  --secondary-foreground: #e8edf3;
+  --surface: #1e2630;
+  --surface-dim: #181f27;
+  --muted: #2b3642;
+  --muted-foreground: #9aa8b8;
+  --accent: #2e3a47;
+  --accent-foreground: #e8edf3;
+  --destructive: #f0696c;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #5aa6ff;
+  --chart-1: #5aa6ff;
+  --chart-2: #27c2a0;
+  --chart-3: #9b8cff;
+  --chart-4: #f2b53c;
+  --chart-5: #ff8da1;
+  --sidebar: #151b23;
+  --sidebar-foreground: #dfe6ee;
+  --sidebar-primary: #5aa6ff;
+  --sidebar-primary-foreground: #0f1620;
+  --sidebar-accent: #232d38;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #5aa6ff;
+  --warning: #f2b53c;
+  --terminal-bg: #141b23;
+  /* Termius rounds its cards and buttons noticeably. Core derives
+     --radius-sm through --radius-4xl from this one value. */
+  --radius: 0.75rem;
+}

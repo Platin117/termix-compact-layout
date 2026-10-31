@@ -1,0 +1,45 @@
+/*
+ * Termius Look, light. The same blue-grey family turned around: a cool grey
+ * page, white cards, a tinted rail, and the same azure accent one step
+ * darker so white text on it stays readable.
+ */
+.termius-light {
+  --background: #f4f6f9;
+  --foreground: #1c242e;
+  --card: #ffffff;
+  --card-foreground: #1c242e;
+  --popover: #ffffff;
+  --popover-foreground: #1c242e;
+  --primary: #1a6fd4;
+  --primary-foreground: #ffffff;
+  --secondary: #e7ebf1;
+  --secondary-foreground: #1c242e;
+  --surface: #ffffff;
+  --surface-dim: #eef1f5;
+  --muted: #e7ebf1;
+  --muted-foreground: #596675;
+  --accent: #e3e9f2;
+  --accent-foreground: #16202b;
+  --destructive: #c7352f;
+  --border: rgba(16, 24, 32, 0.12);
+  --input: rgba(16, 24, 32, 0.18);
+  --ring: #1a6fd4;
+  --chart-1: #1a6fd4;
+  --chart-2: #0f9480;
+  --chart-3: #6d5bd0;
+  --chart-4: #9c6309;
+  --chart-5: #c04a63;
+  --sidebar: #e9edf3;
+  --sidebar-foreground: #1c242e;
+  --sidebar-primary: #1a6fd4;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #dbe3ee;
+  --sidebar-accent-foreground: #16202b;
+  --sidebar-border: rgba(16, 24, 32, 0.1);
+  --sidebar-ring: #1a6fd4;
+  --warning: #9c6309;
+  --terminal-bg: #fbfcfd;
+  /* Termius rounds its cards and buttons noticeably. Core derives
+     --radius-sm through --radius-4xl from this one value. */
+  --radius: 0.75rem;
+}

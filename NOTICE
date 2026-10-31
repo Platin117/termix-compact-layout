@@ -1,0 +1,30 @@
+Compact Layout
+Copyright 2026 Platin117
+
+This product includes software developed by the Termix project
+(https://github.com/Termix-SSH).
+
+It is a fork of Plugin-Simple-Layout
+(https://github.com/Termix-SSH/Plugin-Simple-Layout), licensed under the
+Apache License, Version 2.0.
+
+The following files are taken from that project and are either unchanged or
+only lightly adapted:
+
+  src/frontend/dashboard/HomeTab.tsx
+  src/frontend/dashboard/group-hosts.ts
+  src/frontend/manage/HostForm.tsx
+  src/frontend/manage/HostsTab.tsx
+  src/frontend/manage/CredentialForm.tsx
+  src/frontend/manage/form/form-mapping.ts
+  src/frontend/manage/form/host-editor-data.ts
+  src/frontend/manage/permissions.ts
+  src/frontend/settings/SettingsTab.tsx
+  src/frontend/settings/PluginSettingsForm.tsx
+  src/frontend/shell/SimplePalette.tsx
+  src/frontend/shell/BottomBar.tsx
+  src/backend/index.ts
+  locales/ (the strings those files use)
+
+The shell — the rail, the tab bar, the layout itself and the sidebar settings —
+was written for this fork.

@@ -1,0 +1,107 @@
+{
+  "id": "compact-layout",
+  "name": "Compact Layout",
+  "version": "1.4.0",
+  "description": "A layout and a matching look: one home screen, a side rail, open sessions set apart in the tab bar, and two slate-blue themes.",
+  "author": {
+    "name": "Platin117"
+  },
+  "license": "Apache-2.0",
+  "repository": "https://github.com/Platin117/termix-compact-layout",
+  "category": "Productivity",
+  "icon": "PanelsTopLeft",
+  "features": [
+    "One home screen with a card per host",
+    "Side rail you can reorder and switch entries off in",
+    "Open sessions set apart from navigation in the tab bar",
+    "Snippets button in the terminal toolbar",
+    "Termius Dark and Termius Light, two matching themes"
+  ],
+  "env": [],
+  "engine": {
+    "termix": ">=26.10.3",
+    "api": "^1.6"
+  },
+  "capabilities": [
+    "settings:read-core",
+    "ui:layout",
+    "ui:surface",
+    "ui:theme"
+  ],
+  "contributes": {
+    "layouts": [
+      {
+        "id": "compact",
+        "label": "layout.name",
+        "description": "layout.description"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "dashboard",
+        "titleKey": "tab.home",
+        "icon": "House",
+        "openFrom": [
+          "rail"
+        ]
+      },
+      {
+        "id": "host-manager",
+        "titleKey": "tab.hosts",
+        "icon": "Server",
+        "openFrom": [
+          "rail"
+        ]
+      },
+      {
+        "id": "settings",
+        "titleKey": "tab.settings",
+        "icon": "Settings",
+        "openFrom": [
+          "rail"
+        ]
+      },
+      {
+        "id": "panel",
+        "titleKey": "tab.panel",
+        "icon": "Play",
+        "openFrom": [
+          "rail"
+        ]
+      }
+    ],
+    "uses": [
+      "terminal.toolbar"
+    ],
+    "themes": [
+      {
+        "id": "termius-dark",
+        "label": "theme.termiusDark",
+        "mode": "dark",
+        "css": "themes/termius-dark.css",
+        "swatch": {
+          "background": "#1a212a",
+          "panel": "#222b36",
+          "text": "#e8edf3"
+        }
+      },
+      {
+        "id": "termius-light",
+        "label": "theme.termiusLight",
+        "mode": "light",
+        "css": "themes/termius-light.css",
+        "swatch": {
+          "background": "#f4f6f9",
+          "panel": "#ffffff",
+          "text": "#1c242e"
+        }
+      }
+    ]
+  },
+  "locales": "locales",
+  "platforms": [
+    "linux",
+    "win32",
+    "darwin"
+  ]
+}

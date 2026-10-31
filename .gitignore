@@ -1,0 +1,6 @@
+node_modules/
+dist/
+notes/
+.npm-cache/
+*.tmxplug
+*.tmxplug.sig
