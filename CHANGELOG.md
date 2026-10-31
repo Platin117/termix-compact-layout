@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0
+
+### Fixed
+
+- Dialogs other plugins register can open. A plugin that needs a modal contributes it as a component and trusts the layout to mount the slot; this one mounted none, so Proxmox's "discover and import guests" set its state and nothing appeared, and Host Icons' picker could not open either. `shell.overlay` and `hosts.panel` are now mounted at the layout root. Simple Layout mounts neither, so this was inherited rather than introduced.
+
+### Added
+
+- Host badges on the home screen's cards, so Host Icons and anything else a plugin draws on a host appears beside the name.
+
 ## 1.5.0
 
 ### Added

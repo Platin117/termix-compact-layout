@@ -16,9 +16,11 @@ import {
   cn,
   defaultConnectAction,
   hostActionsFor,
+  hostBadgesFor,
   requestManage,
   runHostAction,
   useHostActions,
+  useHostBadges,
   useHostStatus,
   useShellController,
   type Host,
@@ -121,6 +123,8 @@ function HostCard({ host }: { host: Host }) {
   const { t } = useTranslation();
   const shell = useShellController();
   const actions = useHostActions();
+  // What plugins draw on a host, Host Icons among them.
+  const badges = hostBadgesFor(useHostBadges(), host);
   const status = useHostStatus(Number(host.id), host.statusCheckEnabled);
 
   const connect = defaultConnectAction(actions, host);
@@ -163,8 +167,13 @@ function HostCard({ host }: { host: Host }) {
           title={t(`home.status.${status}`)}
         />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-medium">
-            {host.name || host.ip}
+          <div className="flex min-w-0 items-center gap-1.5">
+            {badges.map(({ id, component: Badge }) => (
+              <Badge key={id} host={host} />
+            ))}
+            <span className="truncate text-sm font-medium">
+              {host.name || host.ip}
+            </span>
           </div>
           <div className="truncate font-mono text-[11px] text-muted-foreground">
             {host.username ? `${host.username}@` : ""}

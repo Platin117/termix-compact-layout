@@ -1,4 +1,5 @@
 import {
+  ComponentSlot,
   ShellConfirmCapture,
   SurfaceScope,
   TabStage,
@@ -44,6 +45,31 @@ export function CompactLayout() {
         </div>
       </div>
       <SimplePalette />
+      <OverlaySlots />
+    </div>
+  );
+}
+
+/**
+ * Where other plugins put their dialogs.
+ *
+ * A plugin that needs a modal registers it as a component contribution and
+ * trusts the layout to mount the slot; the dialog itself renders null until
+ * something opens it. Simple Layout mounts neither of these, which is why
+ * Proxmox's "discover guests" did nothing here: the action set its state and
+ * there was no dialog on the page to notice. `hosts.panel` belongs to the
+ * stock layout's host sidebar, but this layout has no such panel and its
+ * host cards carry the buttons, so it is mounted at the root instead.
+ *
+ * A contribution that draws inline rather than in a portal would land in a
+ * zero-size box and be clipped. None does today; the alternative is dialogs
+ * that never open.
+ */
+function OverlaySlots() {
+  return (
+    <div className="contents">
+      <ComponentSlot slotId="shell.overlay" />
+      <ComponentSlot slotId="hosts.panel" />
     </div>
   );
 }
