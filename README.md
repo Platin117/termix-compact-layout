@@ -57,6 +57,23 @@ directly.
 ./nodeenv.sh "npx termix-plugin pack"
 ```
 
+## Releasing
+
+`git tag v1.2.3 && git push --tags`. The Release workflow builds, tests,
+validates, packs, signs, publishes the release and writes the version into
+`index.json`, which is this repository's plugin registry. Add it in Termix
+under Plugins, Registries to install and update from it instead of uploading
+a file with developer mode on:
+
+```
+https://raw.githubusercontent.com/Platin117/termix-compact-layout/main/index.json
+```
+
+The workflow needs the signing key as the `TERMIX_PLUGIN_SIGNING_KEY` repository
+secret: base64 PKCS8, which is what `npx termix-plugin keygen` writes. The tag
+has to match the version in `manifest.json`, and the public key in `index.json`
+can never change without everyone removing the registry and trusting it again.
+
 ## Two rules that reach past this plugin
 
 `src/frontend/layout/CompactLayout.tsx` carries a small stylesheet that touches
