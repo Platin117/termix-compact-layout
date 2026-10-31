@@ -7,6 +7,10 @@ The idea: **the tab bar lists what is running, and nothing else.** Everything yo
 navigate to lives in a rail on the left that you arrange yourself. Opening Settings
 no longer costs a tab you have to close again; it is a place you go to and leave.
 
+![The home screen: the rail on the left, two open sessions in the tab bar, a card per host](docs/screenshot.png)
+
+*Shown with Termix's default theme, not one of the two bundled here.*
+
 ## What it does
 
 **Layout — "Compact"**
