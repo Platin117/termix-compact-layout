@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Termix-SSH/Termix-Registry/main/registry-index-schema.json",
+  "registry": "platin117",
+  "name": "Platin117 Plugins",
+  "apiVersion": 1,
+  "publicKey": "B+k8cNP9XIKwkEPb1zzvIkh729mOKcDs/Q3vNM3dMlM=",
+  "updatedAt": "2026-10-31T23:51:59Z",
+  "plugins": [
+    {
+      "id": "compact-layout",
+      "name": "Compact Layout",
+      "description": "A layout and a matching look: one home screen, a side rail, open sessions set apart in the tab bar, and two slate-blue themes.",
+      "author": "Platin117",
+      "category": "Productivity",
+      "repository": "https://github.com/Platin117/termix-compact-layout",
+      "icon": "PanelsTopLeft",
+      "features": [
+        "One home screen with a card per host",
+        "Side rail you can reorder and switch entries off in",
+        "Open sessions set apart from navigation in the tab bar",
+        "Snippets button in the terminal toolbar",
+        "Termius Dark and Termius Light, two matching themes"
+      ],
+      "versions": [
+        {
+          "version": "1.6.1",
+          "api": "1",
+          "url": "https://github.com/Platin117/termix-compact-layout/releases/download/v1.6.1/compact-layout-1.6.1.tmxplug",
+          "sha256": "4cd398e8d29972038aa372dde4e0b727173ffaab29069a640496774593af8634",
+          "signature": "dL1xSZy2EV4IzNw0P1ElrlKRdXD/QQJZbPh56BReU8+hm2PyD4RAtKVNxW4tCK3/BGOrATCxe4rKgWNRAo6sDA==",
+          "size": 109383,
+          "capabilities": [
+            "settings:read-core",
+            "ui:layout",
+            "ui:surface",
+            "ui:theme"
+          ],
+          "releaseNotesUrl": "https://github.com/Platin117/termix-compact-layout/releases/tag/v1.6.1",
+          "publishedAt": "2026-10-31T23:51:59Z"
+        }
+      ]
+    }
+  ]
+}
