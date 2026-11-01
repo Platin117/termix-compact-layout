@@ -4,7 +4,7 @@
   "name": "Platin117 Plugins",
   "apiVersion": 1,
   "publicKey": "B+k8cNP9XIKwkEPb1zzvIkh729mOKcDs/Q3vNM3dMlM=",
-  "updatedAt": "2026-10-31T23:51:59Z",
+  "updatedAt": "2026-11-01T00:11:14Z",
   "plugins": [
     {
       "id": "compact-layout",
@@ -22,6 +22,22 @@
         "Termius Dark and Termius Light, two matching themes"
       ],
       "versions": [
+        {
+          "version": "1.6.2",
+          "api": "1",
+          "url": "https://github.com/Platin117/termix-compact-layout/releases/download/v1.6.2/compact-layout-1.6.2.tmxplug",
+          "sha256": "bcc087b8d630a6bf05aa204df2e32e812864fdcbd9c77ceebf2e7df148c82071",
+          "signature": "fATQuGy/s+HYvH1eGjAImRzKhNSAwrdxBNBAEgPjQJtSN7NltZJWVTaSCBI47zQk3x756PcUlpDMG69BH8vVAA==",
+          "size": 110340,
+          "capabilities": [
+            "settings:read-core",
+            "ui:layout",
+            "ui:surface",
+            "ui:theme"
+          ],
+          "releaseNotesUrl": "https://github.com/Platin117/termix-compact-layout/releases/tag/v1.6.2",
+          "publishedAt": "2026-11-01T00:11:14Z"
+        },
         {
           "version": "1.6.1",
           "api": "1",
