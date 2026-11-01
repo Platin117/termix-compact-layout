@@ -37,9 +37,23 @@ and `--radius`.
 
 ## Install
 
-Turn on **Plugin developer mode** under Settings → General, then upload the
-`.tmxplug` in the Plugins area. Pick the layout and a theme under
-Settings → Appearance.
+**From the registry**, which also keeps it up to date. Under
+Plugins → Registries → Add registry, paste
+
+```
+https://raw.githubusercontent.com/Platin117/termix-compact-layout/main/index.json
+```
+
+Click Check, compare the key id Termix shows with `6f86998b60df416c`, then
+trust and add. The plugin is now under Browse, and every later version turns
+up under Updates. No developer mode needed.
+
+**From a file**, if you would rather not trust a registry. Turn on Plugin
+developer mode (Settings → Server in this layout, General in the stock one),
+download the `.tmxplug` from the [latest release](https://github.com/Platin117/termix-compact-layout/releases/latest)
+and upload it in the Plugins area. Updating is then yours to do by hand.
+
+Either way, pick the layout and a theme under Settings → Appearance.
 
 Requires Termix 26.10.3 or newer.
 

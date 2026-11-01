@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.2
+
+### Changed
+
+- Installing is through the registry now: Termix can be pointed at this repository's `index.json` and will install and update on its own, instead of being handed a file with developer mode switched on. The file is still there for anyone who would rather not trust a registry.
+
 ## 1.6.1
 
 ### Fixed
