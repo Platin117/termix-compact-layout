@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.7.0-beta.1
+
+### Added
+
+- Every settings page the stock layout has, in its four groups. Your account: Security (second factors, password, closing the account), API keys, Data and sync. This app: Interface, Keyboard shortcuts. This server: Updates, Users, Sessions, Roles, Host defaults, Database, SSL, API keys, Audit log. Hiding a page is not simplification -- someone who needs roles or the audit log had to leave the layout to find them.
+- A test that every `t("...")` key the source uses exists in both locales, and that the two hold the same keys. A missing key does not crash, it just prints itself into the sidebar, which is exactly what survives a read-through.
+
+### Changed
+
+- The settings sidebar is grouped the way the stock one is, rather than one flat list.
+
+### Removed
+
+- Nothing, but Branding is still missing and cannot be built: the plugin API exports `getBranding` and `useBranding` and no way to write any of it back.
+
 ## 1.6.2
 
 ### Changed

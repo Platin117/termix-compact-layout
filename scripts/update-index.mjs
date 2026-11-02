@@ -49,11 +49,20 @@ if (!plugin) {
   process.exit(1);
 }
 
-// Newest first, and the same version twice means the newer build wins.
-plugin.versions = [
+// A semver with a dash is a prerelease, and the registry keeps those in
+// their own list so an install on the stable channel is never offered one.
+const prerelease = version.includes("-");
+const list = prerelease ? "prereleases" : "versions";
+plugin[list] = [
   entry,
-  ...plugin.versions.filter((v) => v.version !== version),
+  ...(plugin[list] ?? []).filter((v) => v.version !== version),
 ];
+
+// A stable release makes every older prerelease moot: the schema wants only
+// betas newer than the newest stable one.
+if (!prerelease && plugin.prereleases) {
+  delete plugin.prereleases;
+}
 
 // The description and the feature list are the manifest's to change.
 plugin.name = manifest.name;
@@ -62,6 +71,6 @@ plugin.features = manifest.features;
 index.updatedAt = now;
 
 writeFileSync("index.json", `${JSON.stringify(index, null, 2)}\n`);
-console.log(`index.json: ${manifest.id} ${version}`);
+console.log(`index.json: ${manifest.id} ${version} -> ${list}`);
 console.log(`  sha256 ${entry.sha256}`);
 console.log(`  url    ${entry.url}`);

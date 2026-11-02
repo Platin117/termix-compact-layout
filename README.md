@@ -20,10 +20,12 @@ no longer costs a tab you have to close again; it is a place you go to and leave
   filters panels out, which is why Snippets has nowhere to appear there.
 - Reorder the rail and switch entries off under **Settings → Sidebar**. The choice is
   stored in Termix's own rail preferences, so it follows you to other layouts.
-- **Settings → Appearance** holds the theme, the accent colour, the text size and
-  the language. **Settings → Server**, for admins, holds the general server
-  switches: sign-ups, password resets, the second factor, the HTTP to HTTPS
-  redirect, plugin developer mode, the session timeout and the log level.
+- **Every settings page the stock layout has**, in the same four groups:
+  your account (security, API keys, data and sync), this app (interface,
+  appearance, sidebar, keyboard shortcuts), the plugins, and the server
+  (general, updates, users, sessions, roles, host defaults, database, SSL,
+  API keys, audit log). Branding is the only one missing, and it cannot be
+  built -- see below.
 - The tab bar holds open connections only: status dot, monospace, mouse-wheel scrolling.
   Closing a tab lands on the next session, or on Home when it was the last one.
 - A Snippets button in the terminal's bottom toolbar.
@@ -113,11 +115,10 @@ plugin. A layout can contribute buttons to it but cannot take any away. A minima
 the scrollback is not possible either: the terminal's side panel slot receives only
 the host, never the buffer.
 
-The stock layout has eleven admin pages. Core ships the endpoints but no
-components for any of them, so each page has to be rebuilt by hand. Only
-"General" is, as **Settings → Server**; users, roles, sessions, API keys, the
-audit log, branding, the database, SSL, host defaults and updates are still
-only in the stock layout. Switch to it when you need one of those.
+**Branding.** The one settings page the stock layout has and this one does
+not. The plugin API exports `getBranding` and `useBranding` and no way to
+write any of it back, so the page would be a read-only copy of something you
+cannot change from here. Switch to the stock layout to set it.
 
 ## Credits
 

@@ -148,7 +148,27 @@
     "pluginLoadFailed": "Could not load the settings",
     "pluginOff": "{{name}} is not running right now.",
     "rail": "Sidebar",
-    "server": "Server"
+    "server": "Server",
+    "groupAccount": "Your account",
+    "groupApp": "This app",
+    "groupPlugins": "Plugins",
+    "groupServer": "This server",
+    "security": "Security",
+    "apiKeys": "API keys",
+    "data": "Data and sync",
+    "interface": "Interface",
+    "keys": "Keyboard shortcuts",
+    "general": "General",
+    "updates": "Updates",
+    "users": "Users",
+    "sessions": "Sessions",
+    "roles": "Roles",
+    "hostDefaults": "Host defaults",
+    "database": "Database",
+    "ssl": "SSL",
+    "audit": "Audit log",
+    "reportBug": "Report a problem",
+    "cancel": "Cancel"
   },
   "plugin": {
     "name": "Compact Layout",
@@ -199,5 +219,195 @@
       "warn": "Warn",
       "error": "Error"
     }
+  },
+  "admin": {
+    "loadFailed": "Could not load this.",
+    "actionFailed": "That did not work."
+  },
+  "security": {
+    "password": "Password",
+    "passwordHint": "At least 8 characters.",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "repeatPassword": "Repeat new password",
+    "passwordChanged": "Password changed",
+    "passwordFailed": "Could not change the password",
+    "deleteAccount": "Delete account",
+    "deleteHint": "Removes this account and everything stored under it.",
+    "deleteConfirm": "This cannot be undone. Enter your password to confirm.",
+    "deleteForever": "Delete for good",
+    "deleteFailed": "Could not delete the account"
+  },
+  "iface": {
+    "preset": "How much interface",
+    "presetHint": "A starting point. Changing anything below moves this to Custom.",
+    "presets": {
+      "simple": "Simple",
+      "balanced": "Balanced",
+      "advanced": "Advanced",
+      "custom": "Custom"
+    },
+    "chrome": "Around the edges",
+    "showBreadcrumbs": "Breadcrumbs",
+    "showStatusBar": "Status bar",
+    "emptyStates": "Explain empty screens",
+    "emptyStatesHint": "Off hides the hint and the button an empty screen offers.",
+    "hostList": "Host list",
+    "density": "Density",
+    "densities": {
+      "comfortable": "Comfortable",
+      "compact": "Compact"
+    },
+    "showTags": "Tags",
+    "showResourceBars": "Resource bars",
+    "showStatusStripes": "Status stripes",
+    "rowActions": "All row actions",
+    "rowActionsHint": "Off leaves only the ones you need most.",
+    "credentialList": "Login list",
+    "hostEditor": "Host editor",
+    "fullEditor": "Full editor",
+    "fullEditorHint": "Off shows only the fields a host needs.",
+    "reset": "Back to the preset",
+    "resetHint": "Drops every change made here and follows the preset again."
+  },
+  "keys": {
+    "defaults": "Built in",
+    "defaultsHint": "Switch one off to free its keys.",
+    "none": "None",
+    "own": "Your own",
+    "noOwn": "None yet",
+    "remove": "Remove",
+    "add": "Add one",
+    "pickAction": "Pick an action",
+    "pressNow": "Press the keys…",
+    "save": "Add"
+  },
+  "data": {
+    "storage": "Where settings live",
+    "storageHint": "On the server they follow you to another device.",
+    "modes": {
+      "cloud": "On the server",
+      "local": "In this browser only"
+    },
+    "session": "When you sign in",
+    "reopenTabs": "Reopen tabs",
+    "reopenTabsHint": "Brings back what was open when you left.",
+    "confirmTabClose": "Ask before closing a tab",
+    "commandPalette": "Command palette",
+    "disableUpdateCheck": "No update check",
+    "disableUpdateCheckHint": "Stops Termix asking GitHub for a newer version."
+  },
+  "apiKeys": {
+    "new": "New key",
+    "newHint": "The token is shown once and never again.",
+    "namePlaceholder": "What it is for",
+    "create": "Create",
+    "copy": "Copy",
+    "onceOnly": "Copy it now. It cannot be shown again.",
+    "failed": "That did not work.",
+    "title": "Your keys",
+    "allTitle": "All keys",
+    "none": "No keys",
+    "created": "Created",
+    "lastUsed": "Last used",
+    "delete": "Delete"
+  },
+  "users": {
+    "add": "Add a user",
+    "username": "Username",
+    "password": "Password",
+    "create": "Create",
+    "title": "Users",
+    "none": "No users",
+    "twoFactorOn": "Second factor on",
+    "newPassword": "New password",
+    "resetPassword": "Reset password",
+    "promote": "Make admin",
+    "demote": "Remove admin",
+    "delete": "Delete"
+  },
+  "sessions": {
+    "title": "Signed in",
+    "hint": "Every session on this server, and a way to end it.",
+    "none": "Nobody is signed in",
+    "lastActive": "Last active",
+    "revoke": "Sign out",
+    "revokeAllFor": "Sign out every session of {{name}}"
+  },
+  "roles": {
+    "add": "Add a role",
+    "namePlaceholder": "Role name",
+    "create": "Create",
+    "title": "Roles",
+    "none": "No roles",
+    "system": "Built in",
+    "count": "{{count}} permissions",
+    "close": "Done",
+    "edit": "Permissions",
+    "delete": "Delete"
+  },
+  "hostDefaults": {
+    "title": "What a new host starts with",
+    "hint": "Set server wide. A host can still override any of it.",
+    "inherited": "Inherited",
+    "unset": "not set",
+    "emptyClears": "An empty field clears the default again."
+  },
+  "database": {
+    "health": "Health",
+    "noHealth": "Nothing reported",
+    "transfer": "Export and import",
+    "transferHint": "The whole database, as one file.",
+    "export": "Export",
+    "import": "Import"
+  },
+  "ssl": {
+    "current": "Certificate",
+    "none": "None",
+    "enabled": "HTTPS",
+    "on": "On",
+    "off": "Off",
+    "subject": "Subject",
+    "issuer": "Issuer",
+    "names": "Valid for",
+    "validUntil": "Valid until",
+    "fingerprint": "Fingerprint",
+    "selfSigned": "Self signed",
+    "renewal": "Renewed by",
+    "replace": "Replace",
+    "replaceHint": "PEM, certificate and private key.",
+    "certificate": "Certificate",
+    "privateKey": "Private key",
+    "upload": "Upload",
+    "uploaded": "Uploaded",
+    "uploadFailed": "Could not upload that"
+  },
+  "audit": {
+    "title": "What happened",
+    "allActions": "Every action",
+    "none": "Nothing logged",
+    "previous": "Back",
+    "next": "Next",
+    "page": "Page {{page}} of {{total}}"
+  },
+  "updates": {
+    "version": "Version",
+    "running": "Running",
+    "latest": "Newest",
+    "published": "Published",
+    "status": "Status",
+    "channel": "Channel",
+    "channelHint": "Beta gets new versions earlier, and their bugs.",
+    "channels": {
+      "stable": "Stable",
+      "beta": "Beta"
+    },
+    "runningBeta": "This build is a beta, whatever the channel says.",
+    "desktop": "Desktop app",
+    "installKind": "Installed as",
+    "state": "State",
+    "available": "Available",
+    "error": "Error",
+    "check": "Check now"
   }
 }

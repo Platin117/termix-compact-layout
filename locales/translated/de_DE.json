@@ -148,7 +148,27 @@
     "pluginLoadFailed": "Die Einstellungen konnten nicht geladen werden",
     "pluginOff": "{{name}} läuft derzeit nicht.",
     "rail": "Seitenleiste",
-    "server": "Server"
+    "server": "Server",
+    "groupAccount": "Dein Konto",
+    "groupApp": "Diese App",
+    "groupPlugins": "Plugins",
+    "groupServer": "Dieser Server",
+    "security": "Sicherheit",
+    "apiKeys": "API-Schlüssel",
+    "data": "Daten und Synchronisierung",
+    "interface": "Schnittstelle",
+    "keys": "Tastenkombinationen",
+    "general": "Allgemein",
+    "updates": "Updates",
+    "users": "Benutzer",
+    "sessions": "Sitzungen",
+    "roles": "Rollen",
+    "hostDefaults": "Host-Standardwerte",
+    "database": "Datenbank",
+    "ssl": "SSL",
+    "audit": "Audit-Protokoll",
+    "reportBug": "Fehler melden",
+    "cancel": "Abbrechen"
   },
   "plugin": {
     "name": "Compact Layout",
@@ -199,5 +219,195 @@
       "warn": "Warn",
       "error": "Error"
     }
+  },
+  "admin": {
+    "loadFailed": "Konnte nicht geladen werden.",
+    "actionFailed": "Das hat nicht geklappt."
+  },
+  "security": {
+    "password": "Passwort",
+    "passwordHint": "Mindestens 8 Zeichen.",
+    "currentPassword": "Aktuelles Passwort",
+    "newPassword": "Neues Passwort",
+    "repeatPassword": "Neues Passwort wiederholen",
+    "passwordChanged": "Passwort geändert",
+    "passwordFailed": "Passwort konnte nicht geändert werden",
+    "deleteAccount": "Konto löschen",
+    "deleteHint": "Löscht dieses Konto und alles, was daran hängt.",
+    "deleteConfirm": "Das lässt sich nicht rückgängig machen. Passwort zur Bestätigung eingeben.",
+    "deleteForever": "Endgültig löschen",
+    "deleteFailed": "Konto konnte nicht gelöscht werden"
+  },
+  "iface": {
+    "preset": "Wie viel Oberfläche",
+    "presetHint": "Ein Ausgangspunkt. Jede Änderung unten stellt das auf Eigene um.",
+    "presets": {
+      "simple": "Einfach",
+      "balanced": "Ausgewogen",
+      "advanced": "Erweitert",
+      "custom": "Eigene"
+    },
+    "chrome": "Am Rand",
+    "showBreadcrumbs": "Pfadleiste",
+    "showStatusBar": "Statusleiste",
+    "emptyStates": "Leere Ansichten erklären",
+    "emptyStatesHint": "Aus versteckt den Hinweis und den Knopf, den eine leere Ansicht anbietet.",
+    "hostList": "Hostliste",
+    "density": "Dichte",
+    "densities": {
+      "comfortable": "Bequem",
+      "compact": "Kompakt"
+    },
+    "showTags": "Schlagwörter",
+    "showResourceBars": "Auslastungsbalken",
+    "showStatusStripes": "Statusstreifen",
+    "rowActions": "Alle Zeilenaktionen",
+    "rowActionsHint": "Aus lässt nur die wichtigsten übrig.",
+    "credentialList": "Zugangsdatenliste",
+    "hostEditor": "Host-Editor",
+    "fullEditor": "Vollständiger Editor",
+    "fullEditorHint": "Aus zeigt nur die Felder, die ein Host braucht.",
+    "reset": "Zurück zur Voreinstellung",
+    "resetHint": "Verwirft jede Änderung hier und folgt wieder der Voreinstellung."
+  },
+  "keys": {
+    "defaults": "Eingebaut",
+    "defaultsHint": "Ausschalten gibt die Tasten wieder frei.",
+    "none": "Keine",
+    "own": "Eigene",
+    "noOwn": "Noch keine",
+    "remove": "Entfernen",
+    "add": "Hinzufügen",
+    "pickAction": "Aktion wählen",
+    "pressNow": "Tasten drücken…",
+    "save": "Hinzufügen"
+  },
+  "data": {
+    "storage": "Wo Einstellungen liegen",
+    "storageHint": "Auf dem Server folgen sie dir auf andere Geräte.",
+    "modes": {
+      "cloud": "Auf dem Server",
+      "local": "Nur in diesem Browser"
+    },
+    "session": "Beim Anmelden",
+    "reopenTabs": "Tabs wiederherstellen",
+    "reopenTabsHint": "Holt zurück, was beim Verlassen offen war.",
+    "confirmTabClose": "Vor dem Schließen eines Tabs fragen",
+    "commandPalette": "Befehlspalette",
+    "disableUpdateCheck": "Keine Update-Prüfung",
+    "disableUpdateCheckHint": "Termix fragt dann nicht mehr bei GitHub nach einer neueren Version."
+  },
+  "apiKeys": {
+    "new": "Neuer Schlüssel",
+    "newHint": "Das Token wird einmal angezeigt und nie wieder.",
+    "namePlaceholder": "Wofür er ist",
+    "create": "Erstellen",
+    "copy": "Kopieren",
+    "onceOnly": "Jetzt kopieren. Später nicht mehr abrufbar.",
+    "failed": "Das hat nicht geklappt.",
+    "title": "Deine Schlüssel",
+    "allTitle": "Alle Schlüssel",
+    "none": "Keine Schlüssel",
+    "created": "Erstellt",
+    "lastUsed": "Zuletzt benutzt",
+    "delete": "Löschen"
+  },
+  "users": {
+    "add": "Benutzer anlegen",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "create": "Anlegen",
+    "title": "Benutzer",
+    "none": "Keine Benutzer",
+    "twoFactorOn": "Zweiter Faktor an",
+    "newPassword": "Neues Passwort",
+    "resetPassword": "Passwort zurücksetzen",
+    "promote": "Zum Administrator machen",
+    "demote": "Administrator entziehen",
+    "delete": "Löschen"
+  },
+  "sessions": {
+    "title": "Angemeldet",
+    "hint": "Jede Sitzung auf diesem Server, und ein Weg, sie zu beenden.",
+    "none": "Niemand ist angemeldet",
+    "lastActive": "Zuletzt aktiv",
+    "revoke": "Abmelden",
+    "revokeAllFor": "Alle Sitzungen von {{name}} beenden"
+  },
+  "roles": {
+    "add": "Rolle anlegen",
+    "namePlaceholder": "Name der Rolle",
+    "create": "Anlegen",
+    "title": "Rollen",
+    "none": "Keine Rollen",
+    "system": "Eingebaut",
+    "count": "{{count}} Berechtigungen",
+    "close": "Fertig",
+    "edit": "Berechtigungen",
+    "delete": "Löschen"
+  },
+  "hostDefaults": {
+    "title": "Womit ein neuer Host startet",
+    "hint": "Serverweit gesetzt. Ein Host kann alles davon überschreiben.",
+    "inherited": "Geerbt",
+    "unset": "nicht gesetzt",
+    "emptyClears": "Ein leeres Feld löscht den Standardwert wieder."
+  },
+  "database": {
+    "health": "Zustand",
+    "noHealth": "Nichts gemeldet",
+    "transfer": "Export und Import",
+    "transferHint": "Die gesamte Datenbank als eine Datei.",
+    "export": "Exportieren",
+    "import": "Importieren"
+  },
+  "ssl": {
+    "current": "Zertifikat",
+    "none": "Keines",
+    "enabled": "HTTPS",
+    "on": "An",
+    "off": "Aus",
+    "subject": "Inhaber",
+    "issuer": "Aussteller",
+    "names": "Gültig für",
+    "validUntil": "Gültig bis",
+    "fingerprint": "Fingerabdruck",
+    "selfSigned": "Selbst signiert",
+    "renewal": "Erneuert durch",
+    "replace": "Ersetzen",
+    "replaceHint": "PEM, Zertifikat und privater Schlüssel.",
+    "certificate": "Zertifikat",
+    "privateKey": "Privater Schlüssel",
+    "upload": "Hochladen",
+    "uploaded": "Hochgeladen",
+    "uploadFailed": "Konnte nicht hochgeladen werden"
+  },
+  "audit": {
+    "title": "Was passiert ist",
+    "allActions": "Alle Aktionen",
+    "none": "Nichts protokolliert",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "page": "Seite {{page}} von {{total}}"
+  },
+  "updates": {
+    "version": "Version",
+    "running": "Läuft",
+    "latest": "Neueste",
+    "published": "Veröffentlicht",
+    "status": "Status",
+    "channel": "Kanal",
+    "channelHint": "Beta bekommt neue Versionen früher, und ihre Fehler.",
+    "channels": {
+      "stable": "Stabil",
+      "beta": "Beta"
+    },
+    "runningBeta": "Dieser Build ist eine Beta, egal was der Kanal sagt.",
+    "desktop": "Desktop-App",
+    "installKind": "Installiert als",
+    "state": "Zustand",
+    "available": "Verfügbar",
+    "error": "Fehler",
+    "check": "Jetzt prüfen"
   }
 }

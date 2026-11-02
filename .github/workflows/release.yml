@@ -57,7 +57,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           npx termix-plugin changelog --version "${GITHUB_REF_NAME#v}" > notes.md
-          gh release create "$GITHUB_REF_NAME" *.tmxplug \
+          # A dash in the version is a prerelease, here and in the index.
+          case "$GITHUB_REF_NAME" in *-*) pre=--prerelease ;; *) pre= ;; esac
+          gh release create "$GITHUB_REF_NAME" *.tmxplug $pre \
             --title "$GITHUB_REF_NAME" --notes-file notes.md
 
       # Last, so a failure above never leaves the index pointing at a release

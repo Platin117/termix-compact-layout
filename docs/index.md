@@ -9,7 +9,7 @@ Compact Layout is a fork of [Simple Layout](https://github.com/Termix-SSH/Plugin
 - **A Snippets button** in the terminal's bottom toolbar.
 - **No right edge rail.** Simple Layout renders `shell.rightEdge`; this one does not, because those icons repeat what the rail offers.
 
-- **The settings carry what this layout can carry.** Appearance holds the theme, the accent colour, the text size and the language; Server, for admins, holds the general server switches. The stock layout's other ten admin pages — users, roles, sessions, API keys, the audit log, branding, the database, SSL, host defaults, updates — have endpoints in the plugin API but no components, so they are not here.
+- **The settings are complete.** Every page the stock layout has, in the same four groups, down to roles and the audit log. Branding is the one exception: the plugin API can read it and not write it, so that page would be a copy you cannot change.
 
 ## The themes
 
