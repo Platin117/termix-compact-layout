@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.2
+
+### Added
+
+- The host's sudo password, which this layout never offered a field for. The form already loaded and saved it; only the input was missing, so there was no way to set one here. Without it a snippet run on a host with no terminal has nothing to answer sudo's prompt with -- whatever the Snippets setting says -- and the run fails with no output.
+
 ## 1.7.1
 
 ### Fixed

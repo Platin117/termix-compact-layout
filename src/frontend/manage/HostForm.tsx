@@ -406,6 +406,31 @@ export function HostForm({
                 error={tried ? errors.credential : ""}
               />
             )}
+
+            {/*
+              Separate from the sign-in above: it answers sudo's own prompt,
+              not SSH's. Without it a snippet run on a host with no terminal
+              has nothing to answer that prompt with, whatever the Snippets
+              setting says, and the run fails with no output at all.
+            */}
+            <Field
+              label={t("hostForm.sudoPassword")}
+              hint={t("hostForm.sudoPasswordHint")}
+            >
+              <PasswordInput
+                value={
+                  form.sudoPassword === "existing_sudo_password"
+                    ? ""
+                    : form.sudoPassword
+                }
+                placeholder={
+                  form.sudoPassword === "existing_sudo_password"
+                    ? t("hostForm.keySaved")
+                    : ""
+                }
+                onChange={(e) => setField("sudoPassword", e.target.value)}
+              />
+            </Field>
           </>
         )}
 
