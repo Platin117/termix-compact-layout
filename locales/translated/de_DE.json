@@ -310,7 +310,11 @@
     "none": "Keine Schlüssel",
     "created": "Erstellt",
     "lastUsed": "Zuletzt benutzt",
-    "delete": "Löschen"
+    "delete": "Löschen",
+    "name": "Name",
+    "owner": "Benutzer",
+    "expires": "Ablaufdatum",
+    "expiresAt": "Läuft ab"
   },
   "users": {
     "add": "Benutzer anlegen",

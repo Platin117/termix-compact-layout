@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.0-beta.2
+
+### Fixed
+
+- Creating an API key. `createApiKey` takes a user **id**, which core posts to the server unchanged; beta.1 handed it the username, so every key was rejected. The form now also carries the owner and an expiry date, the way the stock one does.
+- A failed API key now shows what the server said rather than a flat "that did not work". The generic message is what made the first version hard to place.
+
 ## 1.7.0-beta.1
 
 ### Added

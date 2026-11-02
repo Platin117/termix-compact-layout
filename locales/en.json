@@ -310,7 +310,11 @@
     "none": "No keys",
     "created": "Created",
     "lastUsed": "Last used",
-    "delete": "Delete"
+    "delete": "Delete",
+    "name": "Name",
+    "owner": "User",
+    "expires": "Expiry date",
+    "expiresAt": "Expires"
   },
   "users": {
     "add": "Add a user",
