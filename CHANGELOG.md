@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.1
+
+### Fixed
+
+- The Sync page, and any other plugin panel shown as a tab, can be scrolled. A panel written for a sidebar need not bring its own scroller, because the stock layout docks it into a column that already has one; this layout mounted it in a box that only hid the overflow, so Sync's conflict list was cut off at the window edge with no way to reach the rest of it.
+
 ## 1.7.0
 
 Every settings page the stock layout has, now that the betas have been run

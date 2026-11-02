@@ -7,6 +7,12 @@ import { getPanel, useShellController } from "@termix-ssh/plugin-sdk/ui";
  * Panels carry a `placement` prop with "tab" among its values, so this is a
  * supported way to show one; it is how Snippets gets a home in a layout with
  * no sidebar to dock it into.
+ *
+ * The page scrolls, because a panel written for a sidebar need not bring its
+ * own scroller: the stock layout docks it into a column that already has one.
+ * Mounting it in a box that only hid the overflow cut Sync's conflict list
+ * off at the window edge with no way to reach the rest. A panel that does
+ * scroll itself fills the height exactly and never reaches this one.
  */
 export function PanelTab({ panelId }: { panelId: string }) {
   const shell = useShellController();
@@ -17,7 +23,7 @@ export function PanelTab({ panelId }: { panelId: string }) {
   const Component = panel.component;
 
   return (
-    <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
       <Component
         active
         placement="tab"
