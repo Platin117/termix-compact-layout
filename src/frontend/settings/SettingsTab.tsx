@@ -81,7 +81,9 @@ function usePluginPages(isAdmin: boolean): PluginSummary[] {
   );
 }
 
-const icon = (Icon: typeof Palette) => <Icon className="size-3.5" />;
+const icon = (Icon: typeof Palette) => (
+  <Icon className="size-3.5 shrink-0 md:mt-0.5" />
+);
 
 /**
  * Every settings page the stock layout has, in its four groups.
@@ -162,7 +164,12 @@ export function SettingsTab({ section }: { section?: string }) {
       pages: pluginPages.map((plugin) => ({
         id: `feature:${plugin.id}`,
         label: pluginName(t, plugin),
-        icon: <PluginIcon name={plugin.icon} className="size-3.5" />,
+        icon: (
+          <PluginIcon
+            name={plugin.icon}
+            className="size-3.5 shrink-0 md:mt-0.5"
+          />
+        ),
         render: () => <PluginPage plugin={plugin} isAdmin={shell.isAdmin} />,
       })),
     },
@@ -263,14 +270,16 @@ export function SettingsTab({ section }: { section?: string }) {
                   key={page.id}
                   type="button"
                   onClick={() => setActive(page.id)}
-                  className={`flex items-center gap-2 px-3 py-2 text-sm text-left whitespace-nowrap ${
+                  className={`flex items-center md:items-start gap-2 px-3 py-2 text-sm text-left whitespace-nowrap md:whitespace-normal ${
                     page.id === current.id
                       ? "bg-muted text-foreground"
                       : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                   }`}
                 >
                   {page.icon}
-                  {page.label}
+                  <span className="min-w-0 [overflow-wrap:anywhere]">
+                    {page.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -281,20 +290,24 @@ export function SettingsTab({ section }: { section?: string }) {
           href={ISSUES_URL}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-2 px-3 py-2 text-sm whitespace-nowrap text-muted-foreground hover:bg-muted/50 hover:text-foreground md:mt-3 md:border-t md:border-border md:pt-3"
+          className="flex items-center md:items-start gap-2 px-3 py-2 text-sm whitespace-nowrap md:whitespace-normal text-muted-foreground hover:bg-muted/50 hover:text-foreground md:mt-3 md:border-t md:border-border md:pt-3"
         >
-          <Bug className="size-3.5" />
-          {t("settings.reportBug")}
+          <Bug className="size-3.5 shrink-0 md:mt-0.5" />
+          <span className="min-w-0 [overflow-wrap:anywhere]">
+            {t("settings.reportBug")}
+          </span>
         </a>
 
         {shell.isAdmin && (
           <button
             type="button"
             onClick={() => shell.tabs.openSingleton("plugins")}
-            className="flex items-center gap-2 px-3 py-2 text-sm text-left whitespace-nowrap text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+            className="flex items-center md:items-start gap-2 px-3 py-2 text-sm text-left whitespace-nowrap md:whitespace-normal text-muted-foreground hover:bg-muted/50 hover:text-foreground"
           >
-            <Puzzle className="size-3.5" />
-            {t("settings.managePlugins")}
+            <Puzzle className="size-3.5 shrink-0 md:mt-0.5" />
+            <span className="min-w-0 [overflow-wrap:anywhere]">
+              {t("settings.managePlugins")}
+            </span>
           </button>
         )}
       </nav>

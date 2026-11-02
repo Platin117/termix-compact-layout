@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.0-beta.4
+
+### Fixed
+
+- Long settings names no longer run off the sidebar at the larger interface sizes. "Daten und Synchronisierung" was cut at the border once the interface font grew, because the sidebar is a fixed width and the names were set not to wrap. They now wrap onto a second line, and the icon stays put at the top of the first one.
+
 ## 1.7.0-beta.3
 
 ### Added
