@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.7.0
+
+Every settings page the stock layout has, now that the betas have been run
+against a real server.
+
+### Added
+
+- The fifteen settings pages this layout was missing, in four groups. **Your account:** Security (second factors, password, closing the account), API keys, Data and sync. **This app:** Interface, Keyboard shortcuts. **This server:** Updates, Users, Sessions, Roles, Host defaults, Database, SSL, API keys, Audit log. Hiding a page is not simplification -- someone who needed roles or the audit log had to leave the layout to find them.
+- Tests that assert what each page sends to core, with the SDK replaced by spies: a user **id** reaching `createApiKey`, a username reaching `deleteUser`, a whole permission list reaching `updateRole`, a parsed number reaching `saveHostDefaultsLevel`. The types cannot tell a username from an id, which is exactly how the first beta shipped broken.
+- A test that every `t("...")` key the source uses exists in both locales, and that the two hold the same keys. A missing key does not crash, it prints itself into the sidebar.
+
+### Changed
+
+- The settings sidebar is grouped the way the stock one is, rather than one flat list, and its names wrap instead of being cut off at the larger interface sizes.
+- A page that cannot do what was asked says what the server said, rather than a flat "that did not work". A generic message is what made the API key failure so hard to place.
+- Ticking a role's permission moves the box at once and puts it back if the write is refused, instead of waiting a round trip. A built-in role now says that it cannot be changed; its boxes were always locked, but nothing on the page said so.
+
+### Removed
+
+- Nothing, and Branding is the one stock page still missing. It cannot be built here: the plugin API exports `getBranding` and `useBranding` and no way to write any of it back.
+
 ## 1.7.0-beta.5
 
 ### Fixed
