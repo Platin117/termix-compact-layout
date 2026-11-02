@@ -340,15 +340,16 @@
   },
   "roles": {
     "add": "Rolle anlegen",
-    "namePlaceholder": "Name der Rolle",
+    "close": "Fertig",
+    "count": "{{count}} Berechtigungen",
     "create": "Anlegen",
-    "title": "Rollen",
+    "delete": "Löschen",
+    "edit": "Berechtigungen",
+    "namePlaceholder": "Name der Rolle",
     "none": "Keine Rollen",
     "system": "Eingebaut",
-    "count": "{{count}} Berechtigungen",
-    "close": "Fertig",
-    "edit": "Berechtigungen",
-    "delete": "Löschen"
+    "systemLocked": "Eingebaute Rollen lassen sich nicht ändern.",
+    "title": "Rollen"
   },
   "hostDefaults": {
     "title": "Womit ein neuer Host startet",

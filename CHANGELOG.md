@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.0-beta.5
+
+### Fixed
+
+- Editing a role's permissions. A tick now moves as soon as it is clicked instead of waiting a round trip for the server, and it is put back if the write is refused. A refusal is shown with what the server said; before, it was swallowed, so a rejected write and a box that did nothing looked exactly alike.
+- A built-in role now says that it cannot be changed. Its boxes were already locked, but nothing on the page said so, which read as the page being broken.
+
 ## 1.7.0-beta.4
 
 ### Fixed

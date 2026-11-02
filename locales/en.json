@@ -340,15 +340,16 @@
   },
   "roles": {
     "add": "Add a role",
-    "namePlaceholder": "Role name",
+    "close": "Done",
+    "count": "{{count}} permissions",
     "create": "Create",
-    "title": "Roles",
+    "delete": "Delete",
+    "edit": "Permissions",
+    "namePlaceholder": "Role name",
     "none": "No roles",
     "system": "Built in",
-    "count": "{{count}} permissions",
-    "close": "Done",
-    "edit": "Permissions",
-    "delete": "Delete"
+    "systemLocked": "Built-in roles cannot be changed.",
+    "title": "Roles"
   },
   "hostDefaults": {
     "title": "What a new host starts with",

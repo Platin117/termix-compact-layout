@@ -106,8 +106,18 @@ vi.mock("@termix-ssh/plugin-sdk/ui", async () => {
     deleteApiKey: vi.fn(async () => ({ success: true })),
     getUserList: vi.fn(async () => ({
       users: [
-        { userId: "u-42", username: "Platin", is_admin: true, totp_enabled: false },
-        { userId: "u-7", username: "Gast", is_admin: false, totp_enabled: false },
+        {
+          userId: "u-42",
+          username: "Platin",
+          is_admin: true,
+          totp_enabled: false,
+        },
+        {
+          userId: "u-7",
+          username: "Gast",
+          is_admin: false,
+          totp_enabled: false,
+        },
       ],
     })),
     adminCreateUser: vi.fn(async () => ({})),
@@ -149,9 +159,7 @@ vi.mock("@termix-ssh/plugin-sdk/ui", async () => {
     updateRole: vi.fn(async () => ({ role: {} })),
     deleteRole: vi.fn(async () => ({ success: true })),
     getPermissionsCatalog: vi.fn(async () => ({
-      catalog: [
-        { group: "hosts", permissions: ["hosts.read", "hosts.write"] },
-      ],
+      catalog: [{ group: "hosts", permissions: ["hosts.read", "hosts.write"] }],
     })),
     getHostDefaultsLevel: vi.fn(async () => ({ values: {}, inherited: {} })),
     saveHostDefaultsLevel: vi.fn(async () => ({})),
@@ -191,24 +199,18 @@ vi.mock("@termix-ssh/plugin-sdk/ui", async () => {
 });
 
 const ui = await import("@termix-ssh/plugin-sdk/ui");
-const { ApiKeySettings } = await import(
-  "../../src/frontend/settings/ApiKeySettings"
-);
-const { UsersSettings } = await import(
-  "../../src/frontend/settings/admin/UsersSettings"
-);
-const { SessionsSettings } = await import(
-  "../../src/frontend/settings/admin/SessionsSettings"
-);
-const { RolesSettings } = await import(
-  "../../src/frontend/settings/admin/RolesSettings"
-);
-const { HostDefaultsSettings } = await import(
-  "../../src/frontend/settings/admin/HostDefaultsSettings"
-);
-const { KeybindingSettings } = await import(
-  "../../src/frontend/settings/KeybindingSettings"
-);
+const { ApiKeySettings } =
+  await import("../../src/frontend/settings/ApiKeySettings");
+const { UsersSettings } =
+  await import("../../src/frontend/settings/admin/UsersSettings");
+const { SessionsSettings } =
+  await import("../../src/frontend/settings/admin/SessionsSettings");
+const { RolesSettings } =
+  await import("../../src/frontend/settings/admin/RolesSettings");
+const { HostDefaultsSettings } =
+  await import("../../src/frontend/settings/admin/HostDefaultsSettings");
+const { KeybindingSettings } =
+  await import("../../src/frontend/settings/KeybindingSettings");
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -238,9 +240,8 @@ describe("API keys", () => {
       await screen.findByPlaceholderText("apiKeys.namePlaceholder"),
       "Laptop",
     );
-    const expiry = document.querySelector<HTMLInputElement>(
-      'input[type="date"]',
-    );
+    const expiry =
+      document.querySelector<HTMLInputElement>('input[type="date"]');
     await user.type(expiry!, "2027-01-31");
     await user.click(screen.getByText("apiKeys.create"));
 
@@ -295,6 +296,67 @@ describe("roles", () => {
         permissions: ["hosts.read", "hosts.write"],
       }),
     );
+  });
+
+  it("ticks the box before the server has answered", async () => {
+    // A write that never settles: whatever is on screen is this page's doing,
+    // not something the server sent back.
+    vi.mocked(ui.updateRole).mockReturnValueOnce(new Promise(() => {}));
+
+    render(<RolesSettings />);
+    const user = userEvent.setup();
+
+    await user.click(await screen.findByText("roles.edit"));
+    const box = (await screen.findByLabelText(
+      "hosts.write",
+    )) as HTMLInputElement;
+    expect(box.checked).toBe(false);
+
+    await user.click(box);
+    expect(box.checked).toBe(true);
+  });
+
+  it("puts the box back and says why when the server refuses", async () => {
+    vi.mocked(ui.updateRole).mockRejectedValueOnce(new Error("nope"));
+
+    render(<RolesSettings />);
+    const user = userEvent.setup();
+
+    await user.click(await screen.findByText("roles.edit"));
+    const box = (await screen.findByLabelText(
+      "hosts.write",
+    )) as HTMLInputElement;
+    await user.click(box);
+
+    await waitFor(() => expect(box.checked).toBe(false));
+    expect(screen.getByText("admin.actionFailed")).toBeTruthy();
+  });
+
+  it("will not let a built-in role be edited", async () => {
+    vi.mocked(ui.getRoles).mockResolvedValueOnce({
+      roles: [
+        {
+          id: 1,
+          name: "admin",
+          displayName: "Admin",
+          description: null,
+          isSystem: true,
+          permissions: ["hosts.read"],
+          createdAt: "",
+          updatedAt: "",
+        },
+      ],
+    });
+
+    render(<RolesSettings />);
+    const user = userEvent.setup();
+
+    await user.click(await screen.findByText("roles.edit"));
+    const box = (await screen.findByLabelText(
+      "hosts.write",
+    )) as HTMLInputElement;
+    expect(box.disabled).toBe(true);
+    expect(screen.getByText("roles.systemLocked")).toBeTruthy();
   });
 });
 
