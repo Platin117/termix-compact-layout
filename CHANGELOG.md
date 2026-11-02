@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.0-beta.3
+
+### Added
+
+- Tests that assert what each settings page sends to core, with the SDK replaced by spies: the user **id** reaching `createApiKey`, a username reaching `deleteUser`, the whole permission list reaching `updateRole`, `{ level: "admin" }` and a parsed number reaching `saveHostDefaultsLevel`, and a disabled override reaching the keybinding preferences. The types cannot tell a username from an id, which is how beta.1 shipped broken.
+- Every core API call in these pages was read against the Termix source rather than its type declarations. Argument order, the paths they build and the bodies they post all match.
+
 ## 1.7.0-beta.2
 
 ### Fixed
