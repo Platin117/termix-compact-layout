@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.8.0
+
+### Added
+
+- Generating an SSH key when adding a credential, and deriving its public half from a private one. Making a key needs ssh2, a server-side module -- the SDK's generator is a backend helper and the UI API has nothing that does it. The Credential Tools plugin registers those buttons as named components, and this layout now renders them. Without that plugin they resolve to nothing and the form is exactly as it was.
+- Description, folder and tags on a credential, which core stores and this layout had no field for. The folder box suggests the folders already in use, and tags are one comma-separated line.
+- The public key is kept and saved with the credential, so a generated pair stays together.
+- Tests on what the credential form sends to core: the tag line reaching it as a list, an untouched optional field reaching it as null rather than "", and the generated public key arriving beside its private half.
+
 ## 1.7.2
 
 ### Added
