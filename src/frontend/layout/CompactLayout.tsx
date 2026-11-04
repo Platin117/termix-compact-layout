@@ -43,6 +43,10 @@ export function CompactLayout() {
           </SurfaceScope>
           {mobile && <BottomBar />}
         </div>
+        {/* Plugin panels pinned to the right edge, sized by the plugin.
+            Outside the column above, so a panel sits beside the tab rather
+            than over it. */}
+        {!mobile && <ComponentSlot slotId="shell.rightEdge" />}
       </div>
       <SimplePalette />
       <OverlaySlots shell={shell} />

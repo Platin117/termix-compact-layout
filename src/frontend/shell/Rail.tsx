@@ -1,5 +1,14 @@
-import { House, LogOut, Palette, Puzzle, Server, Settings, UserRound } from "lucide-react";
 import {
+  House,
+  LogOut,
+  Palette,
+  Puzzle,
+  Server,
+  Settings,
+  UserRound,
+} from "lucide-react";
+import {
+  ComponentSlot,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -8,24 +17,33 @@ import {
   DropdownMenuTrigger,
   railItemLabel,
   useShellController,
+  type RailItemDef,
 } from "@termix-ssh/plugin-sdk/ui";
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { opensAsTab, useRailDestinations } from "./nav";
+import { splitRail, useRailBottom } from "./rail-bottom";
 
 /**
  * The only navigation there is. Hosts at the top, everything a plugin adds
  * below it, the account and settings at the bottom. Nothing here is repeated
  * in the tab bar, which lists running connections and nothing else.
+ *
+ * Which entries sit in the bottom group is the user's choice; see
+ * rail-bottom.ts for where that is kept and why it is not core's store.
  */
 export function Rail() {
   const { t } = useTranslation();
   const shell = useShellController();
   const { tabs } = shell;
-  const items = useRailDestinations();
+  const destinations = useRailDestinations();
+  const bottomGroup = useRailBottom(destinations);
+  const { top: items, bottom } = splitRail(destinations, bottomGroup.ids);
   const active = tabs.active;
   const activeType = active?.type;
   const activePanel =
-    activeType === "panel" ? (active?.data?.panelId as string | undefined) : undefined;
+    activeType === "panel"
+      ? (active?.data?.panelId as string | undefined)
+      : undefined;
 
   return (
     <nav
@@ -51,29 +69,25 @@ export function Rail() {
           however many plugins are installed. */}
       <div className="flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto">
         {items.map((item) => (
-          <RailButton
+          <DestinationButton
             key={item.id}
-            label={railItemLabel(item.id, t)}
-            icon={<item.icon className="size-4 shrink-0" />}
-            active={
-              opensAsTab(item) ? activeType === item.id : activePanel === item.id
-            }
-            onClick={() => {
-              if (opensAsTab(item)) {
-                tabs.openSingleton(item.id);
-              } else {
-                // A sidebar panel has no tab type of its own, so it goes into
-                // the layout's panel tab, which renders it with placement "tab".
-                tabs.openSingleton("panel", undefined, undefined, {
-                  panelId: item.id,
-                });
-              }
-            }}
+            item={item}
+            activeType={activeType}
+            activePanel={activePanel}
           />
         ))}
       </div>
 
       <div className="my-1 h-px shrink-0 bg-border" />
+
+      {bottom.map((item) => (
+        <DestinationButton
+          key={item.id}
+          item={item}
+          activeType={activeType}
+          activePanel={activePanel}
+        />
+      ))}
 
       {shell.isAdmin && (
         <RailButton
@@ -91,6 +105,39 @@ export function Rail() {
         onClick={() => tabs.openSingleton("settings")}
       />
     </nav>
+  );
+}
+
+/**
+ * One rail entry, wherever it sits. A plugin's panel has no tab type of its
+ * own, so it goes into the layout's panel tab, which renders it with
+ * placement "tab".
+ */
+function DestinationButton({
+  item,
+  activeType,
+  activePanel,
+}: {
+  item: RailItemDef;
+  activeType: string | undefined;
+  activePanel: string | undefined;
+}) {
+  const { t } = useTranslation();
+  const { tabs } = useShellController();
+  const asTab = opensAsTab(item);
+  return (
+    <RailButton
+      label={railItemLabel(item.id, t)}
+      icon={<item.icon className="size-4 shrink-0" />}
+      active={asTab ? activeType === item.id : activePanel === item.id}
+      onClick={() => {
+        if (asTab) tabs.openSingleton(item.id);
+        else
+          tabs.openSingleton("panel", undefined, undefined, {
+            panelId: item.id,
+          });
+      }}
+    />
   );
 }
 
@@ -127,6 +174,9 @@ function AccountButton() {
             {t("nav.plugins")}
           </DropdownMenuItem>
         )}
+        {/* Whatever a plugin offers for switching accounts, which is why it
+            sits above the separator rather than beside signing out. */}
+        <ComponentSlot slotId="shell.accountSwitcher" />
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => shell.logout({ manual: true })}>
           <LogOut className="size-3.5" />

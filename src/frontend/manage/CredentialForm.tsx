@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Upload } from "lucide-react";
 import { toast } from "sonner";
 import {
+  Button,
   Field,
   FormFooter,
   Input,
@@ -72,9 +74,11 @@ export function CredentialForm({
     password: "",
     key: "",
     publicKey: credential?.publicKey ?? "",
+    certPublicKey: credential?.certPublicKey ?? "",
     passphrase: "",
   });
   const [folders, setFolders] = useState<string[]>([]);
+  const [showSecretSources, setShowSecretSources] = useState(false);
   const [saving, setSaving] = useState(false);
   const [tried, setTried] = useState(false);
 
@@ -120,6 +124,7 @@ export function CredentialForm({
         key: isKey ? form.key || undefined : null,
         keyPassword: isKey ? form.passphrase || undefined : null,
         publicKey: isKey ? form.publicKey : null,
+        certPublicKey: isKey ? form.certPublicKey.trim() || null : null,
       };
       if (credential) await updateCredential(Number(credential.id), data);
       else await createCredential(data);
@@ -193,6 +198,25 @@ export function CredentialForm({
           { value: "key", label: t("credentialForm.typeKey") },
         ]}
       />
+
+      {/*
+        A secret can come from somewhere other than this form -- a vault, say.
+        The hint offers that, the manager is the panel it opens, and both are
+        a plugin's. Without one they resolve to nothing and the toggle below
+        never gets to show anything.
+      */}
+      <div className="flex flex-wrap items-center gap-2">
+        <PluginComponent
+          id="credentials.secretHint"
+          onManage={() => setShowSecretSources((open) => !open)}
+        />
+      </div>
+      {showSecretSources && (
+        <PluginComponent
+          id="credentials.secretManager"
+          onClose={() => setShowSecretSources(false)}
+        />
+      )}
 
       {form.type === "password" ? (
         <Field
@@ -273,6 +297,56 @@ export function CredentialForm({
               />
             </Field>
           )}
+
+          {/*
+            A CA-signed certificate, for hosts that trust a certificate
+            authority rather than a key on file. It is read in the browser
+            and kept as text, like the private key above: nothing is uploaded
+            anywhere until the credential is saved.
+          */}
+          <Field
+            label={t("credentialForm.certificate")}
+            hint={t("credentialForm.certificateHint")}
+            aside={
+              form.certPublicKey ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 text-destructive"
+                  onClick={() => set("certPublicKey", "")}
+                >
+                  {t("credentialForm.certificateClear")}
+                </Button>
+              ) : undefined
+            }
+          >
+            <>
+              <Textarea
+                value={form.certPublicKey}
+                onChange={(e) => set("certPublicKey", e.target.value)}
+                className="min-h-16 font-mono text-xs"
+                placeholder={t("credentialForm.certificatePlaceholder")}
+              />
+              <label className="mt-1 inline-flex cursor-pointer items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground">
+                <Upload className="size-3.5" />
+                {t("credentialForm.certificateUpload")}
+                <input
+                  type="file"
+                  accept=".pub,.txt,.cert"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    // Cleared so picking the same file twice fires again.
+                    e.target.value = "";
+                    if (!file) return;
+                    void file
+                      .text()
+                      .then((text) => set("certPublicKey", text.trim()));
+                  }}
+                />
+              </label>
+            </>
+          </Field>
         </>
       )}
 

@@ -1,5 +1,51 @@
 # Changelog
 
+## 1.9.0-beta.1
+
+Measured against Plugin-Classic-Layout 1.1.1, which is the reference for what
+a full layout offers. Core has only two editor tabs of its own, general and
+ssh, and this layout replaces both with its own forms -- so everything the
+stock editor keeps there was simply missing here.
+
+### Added
+
+- **The host editor's missing fields.** Tags, notes, pinning, a parent host and
+  local-only; keepalive, legacy algorithms, keyboard-interactive, key type and
+  environment variables; agent forwarding with its socket and identity; SOCKS5
+  with a proxy chain, jump hosts, port knocking and status checks; and the two
+  sign-in switches. The data layer carried every one of them and sent them on
+  save already -- only the inputs were missing, exactly as with the sudo
+  password. Grouped into two tabs, Advanced and Network, so the everyday case
+  stays short.
+- **Thirteen plugin mount points this layout never rendered.** Counts and
+  per-host rows on the home screen, importing hosts, credential badges, row
+  actions and the deploy panel, secret managers in both editors, the right
+  edge, the account menu, the audit toolbar, and both tab slots -- the last
+  needing a right-click tab menu, which this layout did not have. A slot
+  nobody renders fails silently: the plugin contributes and nothing appears.
+  That is how Proxmox's guest import did nothing here for three versions.
+- **The rail's bottom group is yours to arrange.** Any entry can be moved down
+  beside Plugins and Settings. Core's rail preferences have nowhere to keep
+  that, so it lives in this plugin's user settings, which are on the server
+  and follow the account. Entries in core's "system" band start there.
+- **A CA certificate on a credential**, pasted or read from a file.
+- Tests that pin all of it: the mount points by name, including the two left
+  out on purpose, and the shapes the host editor sends -- a tag list staying a
+  list, an unset parent becoming null, a proxy chain sent only in chain mode.
+
+### Removed
+
+- `hosts.selectionActions` and `connections.sections` are not mounted: they
+  need the stock layout's multi-select and its Connections panel, neither of
+  which this layout has.
+- `protocolAuth`, `connectionOrigin` and `keySubTab` have no inputs of their
+  own. The first is edited by the protocol plugins' own sections, and the
+  other two are not user settings.
+- Branding is still absent. It is buildable -- core takes it from whichever
+  plugin provides `<id>.brandingProvider`, which is how the classic layout
+  does it -- but it is only an app name, a tagline and a logo, and it needs a
+  backend of its own to store them.
+
 ## 1.8.0
 
 ### Added

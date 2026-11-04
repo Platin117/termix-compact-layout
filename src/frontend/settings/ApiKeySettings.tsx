@@ -119,11 +119,7 @@ export function ApiKeySettings({ scope }: { scope: "user" | "server" }) {
           />
 
           <div>
-            <Button
-              size="sm"
-              disabled={!name.trim() || !userId}
-              onClick={add}
-            >
+            <Button size="sm" disabled={!name.trim() || !userId} onClick={add}>
               {t("apiKeys.create")}
             </Button>
           </div>
@@ -140,7 +136,9 @@ export function ApiKeySettings({ scope }: { scope: "user" | "server" }) {
                 size="icon-sm"
                 className="size-7"
                 aria-label={t("apiKeys.copy")}
-                onClick={() => void navigator.clipboard?.writeText(created.token)}
+                onClick={() =>
+                  void navigator.clipboard?.writeText(created.token)
+                }
               >
                 <Copy className="size-4" />
               </Button>

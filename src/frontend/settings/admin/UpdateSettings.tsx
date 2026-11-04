@@ -107,7 +107,11 @@ export function UpdateSettings() {
             )}
           </Rows>
           <div className="flex gap-2">
-            <Button size="sm" variant="outline" onClick={() => void desktopUpdates().check()}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => void desktopUpdates().check()}
+            >
               {t("updates.check")}
             </Button>
           </div>

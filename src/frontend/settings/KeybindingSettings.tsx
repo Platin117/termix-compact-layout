@@ -133,7 +133,9 @@ export function KeybindingSettings() {
   };
 
   if (bindings === null) {
-    return <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>;
+    return (
+      <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>
+    );
   }
 
   const chosen = actions.find((a) => a.id === actionId);

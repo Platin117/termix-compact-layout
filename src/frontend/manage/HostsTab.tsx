@@ -10,6 +10,7 @@ import {
 import { toast } from "sonner";
 import {
   Button,
+  ComponentSlot,
   EmptyState,
   Input,
   ListRow,
@@ -321,6 +322,16 @@ export function HostsTab() {
             <Plus className="size-3.5" />
             {mode === "hosts" ? t("manage.addHost") : t("manage.addCredential")}
           </Button>
+          {/* Importing from elsewhere -- Proxmox's guest discovery lives
+              here. The stock list hides these behind a menu beside Add;
+              this list has no such menu, so they sit beside the button and
+              draw their own trigger. */}
+          {mode === "hosts" && (
+            <ComponentSlot
+              slotId="hosts.importMenu"
+              props={{ hosts: hosts.list }}
+            />
+          )}
         </div>
       </div>
 
@@ -367,25 +378,47 @@ export function HostsTab() {
                   title={credential.name}
                   icon={<KeyRound className="size-3.5" />}
                   meta={credential.username}
+                  badges={
+                    <ComponentSlot
+                      slotId="credentials.badges"
+                      props={{ credentialId: Number(credential.id) }}
+                    />
+                  }
                   onClick={() => {
                     setDirty(false);
                     setEditing({ kind: "credential", credential });
                   }}
                   actions={
-                    <ListRowAction
-                      label={t("manage.delete")}
-                      tone="destructive"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        void removeCredential(credential);
-                      }}
-                    >
-                      <Trash2 />
-                    </ListRowAction>
+                    <>
+                      {/* Deploying a key to a host, from Credential Tools. */}
+                      <ComponentSlot
+                        slotId="credentials.rowActions"
+                        props={{
+                          credential: {
+                            id: credential.id,
+                            name: credential.name,
+                          },
+                        }}
+                      />
+                      <ListRowAction
+                        label={t("manage.delete")}
+                        tone="destructive"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          void removeCredential(credential);
+                        }}
+                      >
+                        <Trash2 />
+                      </ListRowAction>
+                    </>
                   }
                 />
               ))}
             </PanelList>
+          )}
+          {/* Credential Tools' deploy dialog renders itself here. */}
+          {mode === "credentials" && (
+            <ComponentSlot slotId="credentials.panel" />
           )}
         </div>
       </div>

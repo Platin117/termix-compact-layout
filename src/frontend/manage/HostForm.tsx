@@ -48,6 +48,15 @@ import {
   type HostEditorForm,
 } from "./form/host-editor-data";
 import { canEditHost, isLockedHost } from "./permissions";
+import { HostAdvanced, HostNetwork, HostOrganisation } from "./HostExtras";
+
+/**
+ * This layout's own editor tabs. They carry the core fields that live in the
+ * stock editor's general and ssh tabs, which this form replaces with its
+ * own -- so without them those fields have nowhere to go.
+ */
+const OWN_ADVANCED = "compact-layout:advanced";
+const OWN_NETWORK = "compact-layout:network";
 
 export interface CredentialOption {
   id: string;
@@ -195,13 +204,18 @@ export function HostForm({
 
   const flags = protocols as unknown as Record<string, boolean>;
   const moreTabs = useMemo(
-    () =>
-      [...makeHostSshSubTabs(t, flags), ...makeHostTabs(t, flags)].filter(
+    () => [
+      // This layout's own two, carrying the core fields that live in the
+      // stock editor's general and ssh tabs -- the ones replaced above.
+      { id: OWN_ADVANCED, label: t("hostForm.tabAdvanced") },
+      { id: OWN_NETWORK, label: t("hostForm.tabNetwork") },
+      ...[...makeHostSshSubTabs(t, flags), ...makeHostTabs(t, flags)].filter(
         (tab, index, all) =>
           tab.id !== "general" &&
           tab.id !== "ssh" &&
           all.findIndex((other) => other.id === tab.id) === index,
       ),
+    ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [t, JSON.stringify(flags)],
   );
@@ -449,6 +463,12 @@ export function HostForm({
           </>
         </Field>
 
+        <HostOrganisation
+          form={form}
+          setField={setField as unknown as (k: string, v: unknown) => void}
+          hostId={host?.id}
+        />
+
         <div className="flex flex-col gap-2 border-t border-border pt-4">
           <button
             type="button"
@@ -509,17 +529,33 @@ export function HostForm({
                       </button>
                     ))}
                   </div>
-                  <PluginSection
-                    id={activeMore.id}
-                    form={form}
-                    setField={
-                      setField as unknown as (k: string, v: unknown) => void
-                    }
-                    updateForm={updateForm}
-                    host={host}
-                    credentials={credentials}
-                    protocols={flags}
-                  />
+                  {activeMore.id === OWN_ADVANCED ? (
+                    <HostAdvanced
+                      form={form}
+                      setField={
+                        setField as unknown as (k: string, v: unknown) => void
+                      }
+                    />
+                  ) : activeMore.id === OWN_NETWORK ? (
+                    <HostNetwork
+                      form={form}
+                      setField={
+                        setField as unknown as (k: string, v: unknown) => void
+                      }
+                    />
+                  ) : (
+                    <PluginSection
+                      id={activeMore.id}
+                      form={form}
+                      setField={
+                        setField as unknown as (k: string, v: unknown) => void
+                      }
+                      updateForm={updateForm}
+                      host={host}
+                      credentials={credentials}
+                      protocols={flags}
+                    />
+                  )}
                 </>
               )}
             </div>

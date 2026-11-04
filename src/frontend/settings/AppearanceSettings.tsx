@@ -119,9 +119,7 @@ export function AppearanceSettings({ isAdmin }: { isAdmin: boolean }) {
               onClick={() => pickAccent(preset.value)}
               title={preset.label}
               aria-label={preset.label}
-              aria-pressed={
-                preset.value.toLowerCase() === accent.toLowerCase()
-              }
+              aria-pressed={preset.value.toLowerCase() === accent.toLowerCase()}
               className={`size-7 rounded-full border-2 ${
                 preset.value.toLowerCase() === accent.toLowerCase()
                   ? "border-foreground"

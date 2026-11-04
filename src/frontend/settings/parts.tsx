@@ -85,7 +85,10 @@ export interface Loaded<T> {
  * Loads once and on demand, and drops a result that arrived after the page
  * was left. Every page here needs this and none of them needs more.
  */
-export function useLoad<T>(load: () => Promise<T>, deps: unknown[] = []): Loaded<T> {
+export function useLoad<T>(
+  load: () => Promise<T>,
+  deps: unknown[] = [],
+): Loaded<T> {
   const [data, setData] = useState<T | null>(null);
   const [failed, setFailed] = useState(false);
   const [nonce, setNonce] = useState(0);
@@ -118,10 +121,14 @@ export function Gate<T>({
 }) {
   const { t } = useTranslation();
   if (state.failed) {
-    return <p className="text-sm text-muted-foreground">{t("admin.loadFailed")}</p>;
+    return (
+      <p className="text-sm text-muted-foreground">{t("admin.loadFailed")}</p>
+    );
   }
   if (state.data === null) {
-    return <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>;
+    return (
+      <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>
+    );
   }
   return <>{children(state.data)}</>;
 }

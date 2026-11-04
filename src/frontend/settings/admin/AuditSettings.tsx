@@ -1,13 +1,14 @@
 import { useState } from "react";
 import {
   Button,
+  ComponentSlot,
+  getAuditLogActions,
+  getAuditLogs,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  getAuditLogActions,
-  getAuditLogs,
 } from "@termix-ssh/plugin-sdk/ui";
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { Gate, Row, Rows, Section, useLoad, when } from "../parts";
@@ -34,6 +35,11 @@ export function AuditSettings() {
   return (
     <Section title={t("audit.title")}>
       <div className="flex flex-col gap-3">
+        {/* Exporting the log and the like, handed the filter in force. */}
+        <ComponentSlot
+          slotId="audit.toolbar"
+          props={{ filters: action === "all" ? {} : { action } }}
+        />
         <Gate state={actions}>
           {(data) => (
             <Select
@@ -103,7 +109,10 @@ export function AuditSettings() {
                     {t("audit.previous")}
                   </Button>
                   <span className="text-xs text-muted-foreground">
-                    {t("audit.page", { page: data.page, total: data.totalPages })}
+                    {t("audit.page", {
+                      page: data.page,
+                      total: data.totalPages,
+                    })}
                   </span>
                   <Button
                     size="sm"

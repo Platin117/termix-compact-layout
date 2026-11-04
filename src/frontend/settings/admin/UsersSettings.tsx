@@ -30,7 +30,9 @@ export function UsersSettings() {
 
   const run = (work: Promise<unknown>) => {
     setNote(null);
-    work.then(() => users.reload()).catch(() => setNote(t("admin.actionFailed")));
+    work
+      .then(() => users.reload())
+      .catch(() => setNote(t("admin.actionFailed")));
   };
 
   const create = () => {
@@ -89,7 +91,9 @@ export function UsersSettings() {
                   key={user.userId}
                   title={user.username}
                   hint={[
-                    user.is_admin ? t("settings.roleAdmin") : t("settings.roleUser"),
+                    user.is_admin
+                      ? t("settings.roleAdmin")
+                      : t("settings.roleUser"),
                     user.totp_enabled ? t("users.twoFactorOn") : null,
                   ]
                     .filter(Boolean)

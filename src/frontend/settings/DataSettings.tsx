@@ -37,7 +37,9 @@ export function DataSettings() {
   }, []);
 
   if (!prefs) {
-    return <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>;
+    return (
+      <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>
+    );
   }
 
   const set = (patch: Partial<UserPreferences>) => {

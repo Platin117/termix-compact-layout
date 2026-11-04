@@ -61,7 +61,9 @@ export function SessionsSettings() {
                         variant="outline"
                         size="sm"
                         onClick={() =>
-                          void revokeAllUserSessions(userId).then(sessions.reload)
+                          void revokeAllUserSessions(userId).then(
+                            sessions.reload,
+                          )
                         }
                       >
                         {t("sessions.revokeAllFor", { name: label })}

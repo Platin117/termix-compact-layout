@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Pencil, Plus, Search, Server } from "lucide-react";
 import {
   Button,
+  ComponentSlot,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -89,6 +90,9 @@ export function HomeTab() {
               </Button>
             </div>
           </div>
+
+          {/* Counts and figures a plugin adds beside the host list. */}
+          <ComponentSlot slotId="dashboard.counters" />
 
           {groups.length === 0 && (
             <p className="text-sm text-muted-foreground">
@@ -179,6 +183,16 @@ function HostCard({ host }: { host: Host }) {
             {host.username ? `${host.username}@` : ""}
             {host.ip}
           </div>
+          {/* What a plugin draws per host, Host Metrics among them. It is
+              given the same three things the stock list hands it. */}
+          <ComponentSlot
+            slotId="dashboard.hostRow"
+            props={{
+              hostId: Number(host.id),
+              host,
+              online: status === "online",
+            }}
+          />
         </div>
         <Tooltip>
           <TooltipTrigger asChild>

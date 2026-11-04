@@ -44,7 +44,10 @@ export function SslSettings() {
               />
               {data.certificate ? (
                 <>
-                  <Row title={t("ssl.subject")} hint={data.certificate.subject} />
+                  <Row
+                    title={t("ssl.subject")}
+                    hint={data.certificate.subject}
+                  />
                   <Row title={t("ssl.issuer")} hint={data.certificate.issuer} />
                   <Row
                     title={t("ssl.names")}
@@ -101,7 +104,9 @@ export function SslSettings() {
             >
               {t("ssl.upload")}
             </Button>
-            {note && <span className="text-xs text-muted-foreground">{note}</span>}
+            {note && (
+              <span className="text-xs text-muted-foreground">{note}</span>
+            )}
           </div>
         </div>
       </Section>

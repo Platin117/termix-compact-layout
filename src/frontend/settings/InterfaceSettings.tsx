@@ -33,7 +33,9 @@ export function InterfaceSettings() {
   const hostEditor = useAreaPreferences("hostEditor");
 
   if (!ui) {
-    return <p className="text-sm text-muted-foreground">{t("rail.unavailable")}</p>;
+    return (
+      <p className="text-sm text-muted-foreground">{t("rail.unavailable")}</p>
+    );
   }
 
   const preset = ui.preferences.preset;
@@ -57,7 +59,9 @@ export function InterfaceSettings() {
               </SelectItem>
             ))}
             {preset === "custom" && (
-              <SelectItem value="custom">{t("iface.presets.custom")}</SelectItem>
+              <SelectItem value="custom">
+                {t("iface.presets.custom")}
+              </SelectItem>
             )}
           </SelectContent>
         </Select>
@@ -83,10 +87,7 @@ export function InterfaceSettings() {
               aria-label={t("iface.showStatusBar")}
             />
           </Row>
-          <Row
-            title={t("iface.emptyStates")}
-            hint={t("iface.emptyStatesHint")}
-          >
+          <Row title={t("iface.emptyStates")} hint={t("iface.emptyStatesHint")}>
             <Switch
               checked={chrome.emptyStateVerbosity === "guided"}
               onCheckedChange={(v) =>
@@ -156,7 +157,11 @@ export function InterfaceSettings() {
             <Switch
               checked={hostList.rowActions === "full"}
               onCheckedChange={(v) =>
-                ui.setOverride("hostList", "rowActions", v ? "full" : "essential")
+                ui.setOverride(
+                  "hostList",
+                  "rowActions",
+                  v ? "full" : "essential",
+                )
               }
               aria-label={t("iface.rowActions")}
             />
@@ -219,7 +224,11 @@ export function InterfaceSettings() {
         <Label className="mb-2 block text-xs text-muted-foreground">
           {t("iface.resetHint")}
         </Label>
-        <Button variant="ghost" size="sm" onClick={() => ui.clearAllOverrides()}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => ui.clearAllOverrides()}
+        >
           {t("iface.reset")}
         </Button>
       </div>

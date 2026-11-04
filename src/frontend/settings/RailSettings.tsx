@@ -1,4 +1,10 @@
-import { ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
+import {
+  ArrowDownToLine,
+  ArrowUpToLine,
+  ChevronDown,
+  ChevronUp,
+  RotateCcw,
+} from "lucide-react";
 import {
   Button,
   railItemLabel,
@@ -7,19 +13,23 @@ import {
 } from "@termix-ssh/plugin-sdk/ui";
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { applyRailPreferences, useRailCandidates } from "../shell/nav";
+import { useRailBottom } from "../shell/rail-bottom";
 
 /**
- * Which entries the rail shows, and in which order.
+ * Which entries the rail shows, in which order, and which of them sit in the
+ * bottom group beside Plugins and Settings.
  *
- * Both are written into core's own rail preferences rather than a setting of
- * this plugin's own, so the choice follows you to the stock layout and back,
- * and syncs like the rest of your interface settings.
+ * The first two are written into core's own rail preferences rather than a
+ * setting of this plugin's own, so they follow you to the stock layout and
+ * back. The bottom group is this layout's own idea and core has nowhere to
+ * keep it, so it lives in this plugin's user settings instead.
  */
 export function RailSettings() {
   const { t } = useTranslation();
   const candidates = useRailCandidates();
   const prefs = useAreaPreferences("rail");
   const ui = useUiPreferencesContext();
+  const bottom = useRailBottom(candidates);
 
   const hidden = new Set(prefs.hiddenTabs ?? []);
   // Shown first in their current order, then the switched-off ones, so the
@@ -46,9 +56,17 @@ export function RailSettings() {
     ui?.setOverride("rail", "hiddenTabs", [...next]);
   };
 
+  const setAtBottom = (id: string, atBottom: boolean) => {
+    const next = new Set(bottom.ids);
+    if (atBottom) next.add(id);
+    else next.delete(id);
+    bottom.setIds([...next]);
+  };
+
   const reset = () => {
     ui?.setOverride("rail", "order", null);
     ui?.setOverride("rail", "hiddenTabs", []);
+    bottom.setIds([]);
   };
 
   if (!ui) {
@@ -74,6 +92,13 @@ export function RailSettings() {
             onDown={() => move(item.id, 1)}
             onToggle={() => setShown(item.id, false)}
             toggleLabel={t("rail.hide")}
+            atBottom={bottom.ids.includes(item.id)}
+            onBand={() => setAtBottom(item.id, !bottom.ids.includes(item.id))}
+            bandLabel={
+              bottom.ids.includes(item.id)
+                ? t("rail.moveTop")
+                : t("rail.moveBottom")
+            }
           />
         ))}
         {off.map((item) => (
@@ -112,6 +137,9 @@ function RailRow({
   onDown,
   onToggle,
   toggleLabel,
+  atBottom,
+  onBand,
+  bandLabel,
 }: {
   label: string;
   icon: React.ReactNode;
@@ -122,6 +150,10 @@ function RailRow({
   onDown: () => void;
   onToggle: () => void;
   toggleLabel: string;
+  /** Left out for a switched-off entry, which sits in neither group. */
+  atBottom?: boolean;
+  onBand?: () => void;
+  bandLabel?: string;
 }) {
   return (
     <li className="flex items-center gap-2 px-3 py-2">
@@ -142,6 +174,22 @@ function RailRow({
       >
         {label}
       </label>
+      {onBand && (
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          className={`size-7 ${atBottom ? "text-foreground" : ""}`}
+          onClick={onBand}
+          aria-label={`${label}: ${bandLabel}`}
+          title={bandLabel}
+        >
+          {atBottom ? (
+            <ArrowUpToLine className="size-4" />
+          ) : (
+            <ArrowDownToLine className="size-4" />
+          )}
+        </Button>
+      )}
       <Button
         variant="ghost"
         size="icon-sm"

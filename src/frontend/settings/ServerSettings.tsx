@@ -94,7 +94,9 @@ export function ServerSettings() {
     );
   }
   if (!state) {
-    return <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>;
+    return (
+      <p className="text-sm text-muted-foreground">{t("settings.loading")}</p>
+    );
   }
 
   // Shown right away, then written. A rejected write puts the switch back.
@@ -160,9 +162,7 @@ export function ServerSettings() {
         }
         checked={state.developerMode}
         disabled={state.signedOnly}
-        onChange={(v) =>
-          write("developerMode", v, () => setDeveloperMode(v))
-        }
+        onChange={(v) => write("developerMode", v, () => setDeveloperMode(v))}
       />
 
       <section className="flex flex-col gap-2 border-t border-border pt-4">

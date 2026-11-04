@@ -361,18 +361,19 @@ function PluginPage({
           fields={plugin.contributes?.settings?.user ?? []}
         />
       )}
-      {isAdmin && hasVisibleFields(plugin.contributes?.settings?.admin ?? []) && (
-        <>
-          <h2 className="pt-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-            {t("settings.forAdmins")}
-          </h2>
-          <PluginSettingsForm
-            plugin={plugin}
-            scope="admin"
-            fields={plugin.contributes?.settings?.admin ?? []}
-          />
-        </>
-      )}
+      {isAdmin &&
+        hasVisibleFields(plugin.contributes?.settings?.admin ?? []) && (
+          <>
+            <h2 className="pt-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+              {t("settings.forAdmins")}
+            </h2>
+            <PluginSettingsForm
+              plugin={plugin}
+              scope="admin"
+              fields={plugin.contributes?.settings?.admin ?? []}
+            />
+          </>
+        )}
     </>
   );
 }

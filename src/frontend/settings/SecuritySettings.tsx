@@ -87,12 +87,17 @@ export function SecuritySettings() {
             <Button size="sm" disabled={!canSave} onClick={save}>
               {t("settings.save")}
             </Button>
-            {note && <span className="text-xs text-muted-foreground">{note}</span>}
+            {note && (
+              <span className="text-xs text-muted-foreground">{note}</span>
+            )}
           </div>
         </div>
       </Section>
 
-      <Section title={t("security.deleteAccount")} hint={t("security.deleteHint")}>
+      <Section
+        title={t("security.deleteAccount")}
+        hint={t("security.deleteHint")}
+      >
         {!armed ? (
           <div>
             <Button

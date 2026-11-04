@@ -91,7 +91,9 @@ export function HostDefaultsSettings() {
                   >
                     <Input
                       value={value}
-                      placeholder={text(entry.builtin) || t("hostDefaults.unset")}
+                      placeholder={
+                        text(entry.builtin) || t("hostDefaults.unset")
+                      }
                       onChange={(e) =>
                         setDraft({ ...draft, [entry.key]: e.target.value })
                       }
