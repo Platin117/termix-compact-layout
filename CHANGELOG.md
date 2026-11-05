@@ -1,5 +1,52 @@
 # Changelog
 
+## 1.9.0
+
+Measured against Plugin-Classic-Layout 1.1.1, which is the reference for what
+a full layout offers. Core keeps only two host editor tabs of its own, general
+and ssh, and this layout replaces both with its own forms -- so every field the
+stock editor keeps there was simply missing here, and every mount point other
+plugins fill through those tabs went unrendered.
+
+### Added
+
+- **The host editor's missing fields.** Tags, notes, pinning, a parent host and
+  local-only; keepalive, legacy algorithms, keyboard-interactive, key type and
+  environment variables; agent forwarding with its socket and identity; SOCKS5
+  with a proxy chain, jump hosts, port knocking and status checks; and the two
+  sign-in switches. The data layer carried every one of them and sent them on
+  save already -- only the inputs were missing, exactly as with the sudo
+  password in 1.7.2. Grouped into two tabs, Advanced and Network, so the
+  everyday case stays short.
+- **Thirteen plugin mount points this layout never rendered.** Counts and
+  per-host rows on the home screen, importing hosts, credential badges, row
+  actions and the deploy panel, secret managers in both editors, the right
+  edge, the account menu, the audit toolbar, and both tab slots -- the last
+  needing a right-click tab menu, which this layout did not have. A slot
+  nobody renders fails silently: the plugin contributes and nothing appears.
+  That is how Proxmox's guest import did nothing here for three versions.
+- **The rail's bottom group is yours to arrange.** Any entry can be moved down
+  beside Plugins and Settings. Core's rail preferences have nowhere to keep
+  that, so it lives in this plugin's user settings, which are on the server
+  and follow the account. Entries in core's "system" band start there.
+- **A CA certificate on a credential**, pasted or read from a file.
+- Tests that pin all of it: the mount points by name, including the two left
+  out on purpose, and the shapes the host editor sends -- a tag list staying a
+  list, an unset parent becoming null, a proxy chain sent only in chain mode.
+
+### Changed
+
+- The per-host plugin row on a home-screen card spans the card rather than
+  sharing the title column, so Host Metrics' bars have room to draw.
+- Host import from a plugin is a menu behind an Import button, shown only when
+  a plugin fills it.
+
+### Removed
+
+- `hosts.selectionActions` and `connections.sections` are not mounted: they
+  need the stock layout's multi-select and its Connections panel, neither of
+  which this layout has.
+
 ## 1.9.0-beta.2
 
 Four things the first beta got wrong, all found by testing it.

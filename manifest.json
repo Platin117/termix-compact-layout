@@ -1,7 +1,7 @@
 {
   "id": "compact-layout",
   "name": "Compact Layout",
-  "version": "1.9.0-beta.2",
+  "version": "1.9.0",
   "description": "A layout and a matching look: one home screen, a side rail, open sessions set apart in the tab bar, and two slate-blue themes.",
   "author": {
     "name": "Platin117"
