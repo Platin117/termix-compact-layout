@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
+  Download,
   KeyRound,
   Plus,
   Search,
@@ -11,6 +12,9 @@ import { toast } from "sonner";
 import {
   Button,
   ComponentSlot,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
   EmptyState,
   Input,
   ListRow,
@@ -25,6 +29,7 @@ import {
   mapCredentials,
   registerTabCloseGuard,
   takePendingManageRequest,
+  useActionSlot,
   useConfirm,
   useHostStatus,
   useShellController,
@@ -322,16 +327,7 @@ export function HostsTab() {
             <Plus className="size-3.5" />
             {mode === "hosts" ? t("manage.addHost") : t("manage.addCredential")}
           </Button>
-          {/* Importing from elsewhere -- Proxmox's guest discovery lives
-              here. The stock list hides these behind a menu beside Add;
-              this list has no such menu, so they sit beside the button and
-              draw their own trigger. */}
-          {mode === "hosts" && (
-            <ComponentSlot
-              slotId="hosts.importMenu"
-              props={{ hosts: hosts.list }}
-            />
-          )}
+          {mode === "hosts" && <ImportMenu hosts={hosts.list} />}
         </div>
       </div>
 
@@ -423,6 +419,40 @@ export function HostsTab() {
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Importing hosts from elsewhere -- Proxmox's guest discovery lives here.
+ *
+ * It has to be a real menu: contributions render a DropdownMenuItem, which
+ * throws outside a menu. The first attempt put the slot beside the Add
+ * button and drew an error strip across Manage for anyone with Proxmox
+ * installed. The trigger only appears when something contributed, so an
+ * install without such a plugin sees no empty menu.
+ */
+function ImportMenu({ hosts }: { hosts: Host[] }) {
+  const { t } = useTranslation();
+  const contributions = useActionSlot("hosts.importMenu");
+  if (contributions.length === 0) return null;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          size="sm"
+          variant="outline"
+          className="h-8"
+          aria-label={t("manage.import")}
+        >
+          <Download className="size-3.5" />
+          {t("manage.import")}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-48">
+        <ComponentSlot slotId="hosts.importMenu" props={{ hosts }} />
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import {
   getPluginUserSettings,
   updatePluginUserSettings,
@@ -15,12 +15,62 @@ const KEY = "railBottom";
  * only what is hidden and in what order -- so the choice lives in this
  * plugin's user settings instead. That store is on the server, so it follows
  * the account rather than the browser, the way the rest of the rail does.
+ *
+ * It is kept in one place rather than per component. The first attempt gave
+ * the rail and the settings page a state each: moving an entry wrote to the
+ * server and redrew the settings page, while the rail, mounted the whole
+ * time, kept showing what it had read at startup. So the setting looked like
+ * it did nothing until the app was restarted.
  */
 
-/** A stored value that was never written is not a list, and seeds itself. */
+interface Store {
+  /** Null until read, and again if reading failed. */
+  ids: string[] | null;
+  loaded: boolean;
+}
+
+let store: Store = { ids: null, loaded: false };
+let reading = false;
+const listeners = new Set<() => void>();
+
+function publish(next: Store) {
+  store = next;
+  for (const listener of listeners) listener();
+}
+
+/** A stored value that was never written is not a list. */
 function storedIds(value: unknown): string[] | null {
   if (!Array.isArray(value)) return null;
   return value.filter((id): id is string => typeof id === "string");
+}
+
+function read() {
+  if (reading || store.loaded) return;
+  reading = true;
+  getPluginUserSettings(PLUGIN_ID)
+    .then((values) => publish({ ids: storedIds(values[KEY]), loaded: true }))
+    .catch(() => publish({ ...store, loaded: true }))
+    .finally(() => {
+      reading = false;
+    });
+}
+
+function write(ids: string[]) {
+  const before = store;
+  // Moves at once and is put back if the server refuses, the way the role
+  // page's permissions do.
+  publish({ ids, loaded: true });
+  void updatePluginUserSettings(PLUGIN_ID, { [KEY]: ids }).catch(() =>
+    publish(before),
+  );
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  read();
+  return () => {
+    listeners.delete(listener);
+  };
 }
 
 /**
@@ -48,43 +98,19 @@ export function splitRail(
 
 export interface RailBottom {
   ids: string[];
-  /** Null until the settings have been read, so nothing flickers downward. */
   loaded: boolean;
   setIds: (ids: string[]) => void;
 }
 
 export function useRailBottom(items: RailItemDef[]): RailBottom {
-  const [stored, setStored] = useState<string[] | null>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    let live = true;
-    getPluginUserSettings(PLUGIN_ID)
-      .then((values) => {
-        if (!live) return;
-        setStored(storedIds(values[KEY]));
-        setLoaded(true);
-      })
-      .catch(() => live && setLoaded(true));
-    return () => {
-      live = false;
-    };
-  }, []);
-
-  const setIds = useCallback((next: string[]) => {
-    // Moves at once and is put back if the server refuses, the way the role
-    // page's permissions do.
-    setStored((before) => {
-      void updatePluginUserSettings(PLUGIN_ID, { [KEY]: next }).catch(() =>
-        setStored(before),
-      );
-      return next;
-    });
-  }, []);
-
+  const current = useSyncExternalStore(
+    subscribe,
+    () => store,
+    () => store,
+  );
   return {
-    ids: stored ?? defaultBottomIds(items),
-    loaded,
-    setIds,
+    ids: current.ids ?? defaultBottomIds(items),
+    loaded: current.loaded,
+    setIds: write,
   };
 }

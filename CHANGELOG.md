@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.9.0-beta.2
+
+Four things the first beta got wrong, all found by testing it.
+
+### Fixed
+
+- **The new host settings had no labels.** The SDK's `Switch` is the bare
+  control and draws no label of its own, so ten settings arrived as unmarked
+  toggles. They are built on `SwitchRow`, `Repeater` and `TagInput` now --
+  the labelled components the stock editor itself uses -- so tags,
+  environment variables, jump hosts, port knocking and the proxy chain look
+  the way they do in the classic editor instead of hand-rolled.
+- **Moving a rail entry down appeared to do nothing.** The rail and the
+  settings page each kept their own copy of the choice: the move was written
+  to the server and redrew the settings page, while the rail, mounted the
+  whole time, went on showing what it had read at startup. Both read one
+  shared value now, so an entry moves as you click.
+- **An error strip across Manage.** Proxmox contributes a menu item to
+  `hosts.importMenu`, and this layout put that slot beside "Add host" with no
+  menu around it; a menu item outside a menu throws. There is a real Import
+  button with a menu now, shown only when a plugin fills it.
+- **Host metrics ran past the edge of a host card.** The per-host slot sat in
+  the title column beside the edit button, where the metre bars had no width
+  left. It gets a row of its own across the card.
+
 ## 1.9.0-beta.1
 
 Measured against Plugin-Classic-Layout 1.1.1, which is the reference for what

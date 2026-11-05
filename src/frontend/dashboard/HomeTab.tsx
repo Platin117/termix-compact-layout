@@ -183,16 +183,6 @@ function HostCard({ host }: { host: Host }) {
             {host.username ? `${host.username}@` : ""}
             {host.ip}
           </div>
-          {/* What a plugin draws per host, Host Metrics among them. It is
-              given the same three things the stock list hands it. */}
-          <ComponentSlot
-            slotId="dashboard.hostRow"
-            props={{
-              hostId: Number(host.id),
-              host,
-              online: status === "online",
-            }}
-          />
         </div>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -207,6 +197,23 @@ function HostCard({ host }: { host: Host }) {
           </TooltipTrigger>
           <TooltipContent>{t("home.edit")}</TooltipContent>
         </Tooltip>
+      </div>
+
+      {/*
+        What a plugin draws per host, Host Metrics among them, given the
+        same three things the stock list hands it. It gets a row of its own
+        across the card: squeezed into the title column beside the edit
+        button, the metre bars had no width left and ran past the edge.
+      */}
+      <div className="min-w-0 overflow-hidden">
+        <ComponentSlot
+          slotId="dashboard.hostRow"
+          props={{
+            hostId: Number(host.id),
+            host,
+            online: status === "online",
+          }}
+        />
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5">
