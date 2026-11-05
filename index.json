@@ -4,7 +4,7 @@
   "name": "Platin117 Plugins",
   "apiVersion": 1,
   "publicKey": "B+k8cNP9XIKwkEPb1zzvIkh729mOKcDs/Q3vNM3dMlM=",
-  "updatedAt": "2026-11-05T18:39:58Z",
+  "updatedAt": "2026-11-05T18:48:00Z",
   "plugins": [
     {
       "id": "compact-layout",
@@ -22,6 +22,22 @@
         "Termius Dark and Termius Light, two matching themes"
       ],
       "versions": [
+        {
+          "version": "1.9.0",
+          "api": "1",
+          "url": "https://github.com/Platin117/termix-compact-layout/releases/download/v1.9.0/compact-layout-1.9.0.tmxplug",
+          "sha256": "f34b590dec66dff7b6180d93976b2b00cc9c27a846bc8c490b1b831131bcde08",
+          "signature": "JTNzqYqIWPmTLSz8+OlbFg9oA2MAT2yffaVysc2cwzDz2nyHUg6e7aCkTlNshbFRHl+TMriR0fL89WrJbjudAA==",
+          "size": 183914,
+          "capabilities": [
+            "settings:read-core",
+            "ui:layout",
+            "ui:surface",
+            "ui:theme"
+          ],
+          "releaseNotesUrl": "https://github.com/Platin117/termix-compact-layout/releases/tag/v1.9.0",
+          "publishedAt": "2026-11-05T18:48:00Z"
+        },
         {
           "version": "1.8.0",
           "api": "1",
@@ -117,40 +133,6 @@
           ],
           "releaseNotesUrl": "https://github.com/Platin117/termix-compact-layout/releases/tag/v1.6.1",
           "publishedAt": "2026-10-31T23:51:59Z"
-        }
-      ],
-      "prereleases": [
-        {
-          "version": "1.9.0-beta.2",
-          "api": "1",
-          "url": "https://github.com/Platin117/termix-compact-layout/releases/download/v1.9.0-beta.2/compact-layout-1.9.0-beta.2.tmxplug",
-          "sha256": "41d68075b323a7d36dd393a8d0479020795536ec7f50b314535d012f734360c0",
-          "signature": "W7NqqUl5/rReRvMPAP0Azt/NXOQOrRhxieuJF39ifRCOIsIeMoVEcKEla+kMfgJLsHWPxSj09hz3JjIs2jzhCA==",
-          "size": 183767,
-          "capabilities": [
-            "settings:read-core",
-            "ui:layout",
-            "ui:surface",
-            "ui:theme"
-          ],
-          "releaseNotesUrl": "https://github.com/Platin117/termix-compact-layout/releases/tag/v1.9.0-beta.2",
-          "publishedAt": "2026-11-05T18:39:58Z"
-        },
-        {
-          "version": "1.9.0-beta.1",
-          "api": "1",
-          "url": "https://github.com/Platin117/termix-compact-layout/releases/download/v1.9.0-beta.1/compact-layout-1.9.0-beta.1.tmxplug",
-          "sha256": "f89cc54822ba140d156bcce06e6e2656f7d125f6cb3c07636e8ab72bcc1de4fb",
-          "signature": "iOJNzCMV031JYA8M+vXLB4vjuLkpqQWmrr4jeg9ceiA+a3eMunKDkb1BDa3zfzsFYi+syiXabZosA0b3BtWuCQ==",
-          "size": 183736,
-          "capabilities": [
-            "settings:read-core",
-            "ui:layout",
-            "ui:surface",
-            "ui:theme"
-          ],
-          "releaseNotesUrl": "https://github.com/Platin117/termix-compact-layout/releases/tag/v1.9.0-beta.1",
-          "publishedAt": "2026-11-04T13:35:02Z"
         }
       ]
     }
