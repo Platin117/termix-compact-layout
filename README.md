@@ -43,7 +43,7 @@ and `--radius`.
 Plugins → Registries → Add registry, paste
 
 ```
-https://raw.githubusercontent.com/Platin117/termix-compact-layout/main/index.json
+https://raw.githubusercontent.com/Platin117/termix-plugins/main/index.json
 ```
 
 Click Check, compare the key id Termix shows with `6f86998b60df416c`, then
@@ -76,19 +76,29 @@ directly.
 ## Releasing
 
 `git tag v1.2.3 && git push --tags`. The Release workflow builds, tests,
-validates, packs, signs, publishes the release and writes the version into
-`index.json`, which is this repository's plugin registry. Add it in Termix
-under Plugins, Registries to install and update from it instead of uploading
-a file with developer mode on:
+validates, packs, signs, publishes the release and writes the version into the
+shared registry index in
+[Platin117/termix-plugins](https://github.com/Platin117/termix-plugins), so one
+URL in Termix covers every plugin:
 
 ```
-https://raw.githubusercontent.com/Platin117/termix-compact-layout/main/index.json
+https://raw.githubusercontent.com/Platin117/termix-plugins/main/index.json
 ```
 
-The workflow needs the signing key as the `TERMIX_PLUGIN_SIGNING_KEY` repository
-secret: base64 PKCS8, which is what `npx termix-plugin keygen` writes. The tag
-has to match the version in `manifest.json`, and the public key in `index.json`
-can never change without everyone removing the registry and trusting it again.
+The `index.json` still in this repository is written too, for anyone whose
+Termix points at the old URL. It can go once nobody does.
+
+Two repository secrets are needed:
+
+- `TERMIX_PLUGIN_SIGNING_KEY` — base64 PKCS8, which is what
+  `npx termix-plugin keygen` writes.
+- `REGISTRY_TOKEN` — a fine-grained GitHub token with contents read/write on
+  `Platin117/termix-plugins` and nothing else.
+
+The tag has to match the version in `manifest.json`, and the public key in the
+index can never change without everyone removing the registry and trusting it
+again. It is the same key as before, so the key id stays `6f86998b60df416c`
+and nobody has to re-trust anything when they switch URL.
 
 ## Two rules that reach past this plugin
 

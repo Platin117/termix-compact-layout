@@ -1,28 +1,29 @@
 #!/usr/bin/env node
 /**
- * Puts this version into the registry index.
+ * Puts this version into the shared registry index.
  *
  * Everything but the signature is derived: the metadata from manifest.json,
  * the checksum and size from the packed file itself. Typing any of it by
  * hand is how an index ends up describing a build nobody can install.
  *
- *   node scripts/update-index.mjs compact-layout-1.6.1.tmxplug
+ *   node scripts/update-index.mjs compact-layout-1.9.0.tmxplug registry/index.json
  *
  * The signature is read from <file>.sig, which `termix-plugin sign` writes.
  * Re-running for a version already listed replaces that entry, so a botched
- * release can be redone without hand-editing JSON.
+ * release can be redone without hand-editing JSON. A plugin the index does
+ * not know yet is added, so the first release needs no manual entry.
  */
 import { createHash } from "node:crypto";
 import { readFileSync, statSync, writeFileSync } from "node:fs";
 
-const [pluginFile] = process.argv.slice(2);
+const [pluginFile, indexFile = "index.json"] = process.argv.slice(2);
 if (!pluginFile) {
-  console.error("usage: update-index.mjs <file.tmxplug>");
+  console.error("usage: update-index.mjs <file.tmxplug> [index.json]");
   process.exit(1);
 }
 
 const manifest = JSON.parse(readFileSync("manifest.json", "utf8"));
-const index = JSON.parse(readFileSync("index.json", "utf8"));
+const index = JSON.parse(readFileSync(indexFile, "utf8"));
 const bytes = readFileSync(pluginFile);
 const signature = readFileSync(`${pluginFile}.sig`, "utf8").trim();
 
@@ -43,10 +44,11 @@ const entry = {
   publishedAt: now,
 };
 
-const plugin = index.plugins.find((p) => p.id === manifest.id);
+index.plugins ??= [];
+let plugin = index.plugins.find((p) => p.id === manifest.id);
 if (!plugin) {
-  console.error(`index.json has no plugin "${manifest.id}"`);
-  process.exit(1);
+  plugin = { id: manifest.id, versions: [] };
+  index.plugins.push(plugin);
 }
 
 // A semver with a dash is a prerelease, and the registry keeps those in
@@ -64,13 +66,15 @@ if (!prerelease && plugin.prereleases) {
   delete plugin.prereleases;
 }
 
-// The description and the feature list are the manifest's to change.
+// The manifest owns how the plugin presents itself.
 plugin.name = manifest.name;
 plugin.description = manifest.description;
+plugin.author = manifest.author?.name ?? manifest.author;
+plugin.category = manifest.category;
+plugin.repository = manifest.repository;
+plugin.icon = manifest.icon;
 plugin.features = manifest.features;
-index.updatedAt = now;
 
-writeFileSync("index.json", `${JSON.stringify(index, null, 2)}\n`);
-console.log(`index.json: ${manifest.id} ${version} -> ${list}`);
-console.log(`  sha256 ${entry.sha256}`);
-console.log(`  url    ${entry.url}`);
+index.updatedAt = now;
+writeFileSync(indexFile, `${JSON.stringify(index, null, 2)}\n`);
+console.log(`${indexFile}: ${manifest.id} ${version}`);

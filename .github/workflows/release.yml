@@ -62,14 +62,45 @@ jobs:
           gh release create "$GITHUB_REF_NAME" *.tmxplug $pre \
             --title "$GITHUB_REF_NAME" --notes-file notes.md
 
-      # Last, so a failure above never leaves the index pointing at a release
+      # Last, so a failure above never leaves an index pointing at a release
       # that was never published.
-      - name: Write the version into the registry index
+      #
+      # The registry moved to a repository of its own, so one URL in Termix
+      # covers every plugin. The copy in this repository is still written for
+      # anyone whose Termix still points at the old URL; it can go once
+      # nobody does.
+      - name: Check out the registry
+        uses: actions/checkout@v5
+        with:
+          repository: Platin117/termix-plugins
+          token: ${{ secrets.REGISTRY_TOKEN }}
+          path: registry
+
+      - name: Write the version into the shared registry index
+        run: |
+          if [ ! -f registry/index.json ]; then
+            echo "The registry checkout is missing. Is REGISTRY_TOKEN set?" >&2
+            exit 1
+          fi
+          plugin=$(ls *.tmxplug)
+          node scripts/update-index.mjs "$plugin" registry/index.json
+          cd registry
+          if git diff --quiet index.json; then
+            echo "The registry already lists this build."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json
+          git commit -m "chore: compact-layout ${GITHUB_REF_NAME}"
+          git push
+
+      - name: Write the version into this repository's old index
         run: |
           plugin=$(ls *.tmxplug)
           git fetch origin main
           git checkout -B main origin/main
-          node scripts/update-index.mjs "$plugin"
+          node scripts/update-index.mjs "$plugin" index.json
           if git diff --quiet index.json; then
             echo "index.json already lists this build."
             exit 0
