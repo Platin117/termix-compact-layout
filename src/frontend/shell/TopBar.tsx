@@ -35,16 +35,25 @@ export function TopBar() {
   const sessions = tabs.topLevel.filter(isSessionTab);
 
   /**
-   * Closing the tab you are looking at lands on the next session, or on Home
-   * when that was the last one. Core would fall back to the previously active
-   * tab, which in this layout is a page you left through the rail long ago.
+   * Closing the tab you are looking at lands on its neighbour, or on Home
+   * when that was the last one. Core would fall back to the previously
+   * active tab, which in this layout is a page you left through the rail
+   * long ago -- but jumping to the last tab, as this did until 1.10.0, is no
+   * better: working left to right through eight terminals, every close threw
+   * you to the far end and you had to walk back.
+   *
+   * `rest[index]` is the tab that moved into the closed one's place, so it
+   * is the one to its right; closing the rightmost leaves that undefined and
+   * the new last one, its left neighbour, takes over.
    */
   const closeTab = async (id: string) => {
     const wasActive = id === tabs.activeId;
+    const index = sessions.findIndex((tab) => tab.id === id);
     const rest = sessions.filter((tab) => tab.id !== id);
     await tabs.close(id);
     if (!wasActive) return;
-    if (rest.length > 0) tabs.setActive(rest[rest.length - 1].id);
+    const next = rest[index] ?? rest[rest.length - 1];
+    if (next) tabs.setActive(next.id);
     else tabs.openSingleton("dashboard");
   };
 

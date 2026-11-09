@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.10.0
+
+### Added
+
+- **The dashboard cards plugins register** now show on the home screen, above
+  the host list -- Operations Center's three among them. They were registered
+  and drawn nowhere here, so anything a plugin wanted to tell you before you
+  picked a machine went unseen. The stock dashboard lets you arrange them on a
+  twelve column grid; this is a plain wall of tiles, which is what a layout
+  without that editor can honestly offer.
+
+### Fixed
+
+- **Closing a tab now lands on its neighbour, not on the last tab.** Working
+  left to right through a row of terminals -- which is what Snippet Terminals
+  leaves behind -- every close threw you to the far end and you had to walk
+  back. The code had meant to do this since the start; its comment said "the
+  next session" while the line underneath picked the last one.
+
 ## 1.9.1
 
 ### Fixed

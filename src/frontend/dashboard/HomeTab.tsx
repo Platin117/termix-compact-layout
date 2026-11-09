@@ -21,9 +21,12 @@ import {
   hostBadgesFor,
   requestManage,
   runHostAction,
+  TileFrame,
+  TileWall,
   useHostActions,
   useHostBadges,
   useHostStatus,
+  useRegisteredDashboardCards,
   useShellController,
   type Host,
 } from "@termix-ssh/plugin-sdk/ui";
@@ -95,6 +98,15 @@ export function HomeTab() {
           {/* Counts and figures a plugin adds beside the host list. */}
           <ComponentSlot slotId="dashboard.counters" />
 
+          {/*
+            The dashboard cards plugins register, Operations Center's among
+            them. The stock dashboard lets you arrange them on a twelve
+            column grid; this layout has no such editor, so they are simply
+            laid out above the host list, which is where you would look for
+            "anything I should know about" before picking a machine.
+          */}
+          <DashboardCards />
+
           {groups.length === 0 && (
             <p className="text-sm text-muted-foreground">
               {t("home.noMatches")}
@@ -121,6 +133,49 @@ export function HomeTab() {
         </div>
       </div>
     </TooltipProvider>
+  );
+}
+
+/**
+ * A card's title lives in the contributing plugin's own locale. The shell's
+ * `t` resolves most of them directly; when it does not, i18next hands the key
+ * straight back, so the namespaced form is tried before giving up and showing
+ * the key rather than an empty header.
+ */
+function cardTitle(
+  card: { titleKey: string; pluginId?: string },
+  t: (key: string) => string,
+): string {
+  const direct = t(card.titleKey);
+  if (direct !== card.titleKey) return direct;
+  if (!card.pluginId) return card.titleKey;
+  const scoped = `plugins.${card.pluginId}.${card.titleKey}`;
+  const viaPlugin = t(scoped);
+  return viaPlugin === scoped ? card.titleKey : viaPlugin;
+}
+
+/** Every registered dashboard card, in one wall above the host list. */
+function DashboardCards() {
+  const { t } = useTranslation();
+  const shell = useShellController();
+  const cards = useRegisteredDashboardCards();
+  if (cards.length === 0) return null;
+  return (
+    <TileWall minWidth={260} className="rounded-md border">
+      {cards.map((card) => {
+        const Card = card.component;
+        const bare = card.frame === "bare";
+        return (
+          <TileFrame
+            key={card.id}
+            bare={bare}
+            title={bare ? undefined : cardTitle(card, t)}
+          >
+            <Card isVisible shell={shell.callbacks} />
+          </TileFrame>
+        );
+      })}
+    </TileWall>
   );
 }
 
