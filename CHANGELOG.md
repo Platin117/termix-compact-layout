@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.10.1
+
+### Removed
+
+- **The dashboard cards on the home screen**, added in 1.10.0. They put
+  Alerts, Workspaces, Remote Sites and the Operations tiles above the host
+  list, each of which already has a tab or a rail entry of its own. Home is
+  the host list again and nothing else.
+
 ## 1.10.0
 
 ### Added
