@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.9.1
+
+### Fixed
+
+- **The home screen crashed on Termix 26.11.1.** A host badge may now be
+  dot-only: `component` became optional, and a plugin that merely reports a
+  problem leaves it out and fills the new `useDot` instead. This layout
+  rendered every badge unguarded, so one such plugin turned the card into
+  `<undefined />` and took the whole screen down with React error #130. The
+  badge is now only drawn when it has something to draw.
+
+### Added
+
+- **The merged status dot** every plugin's problems feed into, drawn with the
+  kit's own `HostDotGroup`, with the worst tone winning and each reason in
+  the tooltip. Without it a host's problems would simply have gone unseen
+  here, since that is where they are reported from 26.11.1 on.
+
+### Changed
+
+- **Requires Termix 26.11.1 and plugin API 1.15**, because the dot group is
+  part of that release. Older installs stay on 1.9.0, which still works for
+  them: the crash only happens once a plugin contributes a dot-only badge.
+
 ## 1.9.0
 
 Measured against Plugin-Classic-Layout 1.1.1, which is the reference for what

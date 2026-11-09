@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   EmptyState,
+  HostDotGroup,
   Input,
   Tooltip,
   TooltipContent,
@@ -172,9 +173,17 @@ function HostCard({ host }: { host: Host }) {
         />
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 items-center gap-1.5">
-            {badges.map(({ id, component: Badge }) => (
-              <Badge key={id} host={host} />
-            ))}
+            {/*
+              Since Termix 26.11.1 a badge may be dot-only: `component` is
+              optional, and a plugin that merely reports a problem leaves it
+              out and fills `useDot` instead. Rendering that unguarded is
+              `<undefined />`, which took the whole home screen down with
+              React error #130 the moment one such plugin was installed.
+            */}
+            <HostDotGroup host={host} badges={badges} />
+            {badges.map(({ id, component: Badge }) =>
+              Badge ? <Badge key={id} host={host} /> : null,
+            )}
             <span className="truncate text-sm font-medium">
               {host.name || host.ip}
             </span>
