@@ -14,9 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-        with:
-          # The index is updated on main afterwards, which needs its history.
-          fetch-depth: 0
 
       - uses: actions/setup-node@v5
         with:
@@ -62,13 +59,13 @@ jobs:
           gh release create "$GITHUB_REF_NAME" *.tmxplug $pre \
             --title "$GITHUB_REF_NAME" --notes-file notes.md
 
-      # Last, so a failure above never leaves an index pointing at a release
+      # Last, so a failure above never leaves the index pointing at a release
       # that was never published.
       #
-      # The registry moved to a repository of its own, so one URL in Termix
-      # covers every plugin. The copy in this repository is still written for
-      # anyone whose Termix still points at the old URL; it can go once
-      # nobody does.
+      # The index lives in a repository of its own, so one URL in Termix
+      # covers every plugin -- and so this workflow never writes to its own
+      # main branch, which used to collide with whatever was being pushed
+      # from a desk at the same time.
       - name: Check out the registry
         uses: actions/checkout@v5
         with:
@@ -94,19 +91,3 @@ jobs:
           git add index.json
           git commit -m "chore: compact-layout ${GITHUB_REF_NAME}"
           git push
-
-      - name: Write the version into this repository's old index
-        run: |
-          plugin=$(ls *.tmxplug)
-          git fetch origin main
-          git checkout -B main origin/main
-          node scripts/update-index.mjs "$plugin" index.json
-          if git diff --quiet index.json; then
-            echo "index.json already lists this build."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.json
-          git commit -m "chore: ${GITHUB_REF_NAME} in the registry index"
-          git push origin main

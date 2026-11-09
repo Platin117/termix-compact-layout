@@ -85,8 +85,9 @@ URL in Termix covers every plugin:
 https://raw.githubusercontent.com/Platin117/termix-plugins/main/index.json
 ```
 
-The `index.json` still in this repository is written too, for anyone whose
-Termix points at the old URL. It can go once nobody does.
+The `index.json` still lying in this repository is no longer written: it is
+frozen at 1.10.0 and only there so that a Termix still pointing at the old
+URL does not fail outright. Switch that URL over and the file can be deleted.
 
 Two repository secrets are needed:
 
