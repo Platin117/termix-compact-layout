@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.0-beta.1
+
+### Changed
+
+- **Built for plugin API 2, so it runs on Termix 26.11.3 again.** Termix
+  26.11.2 stopped loading API 1 plugins, and a community layout could not
+  run at all there. 26.11.3 lets an admin allow community layouts and themes
+  to run in the page: turn on *Community layouts and themes* under
+  Plugins → Registries. Without it the layout stays off.
+- **Requires Termix 26.11.3 and plugin API 2.9.** Older installs stay on
+  1.10.1.
+
 ## 1.10.1
 
 ### Removed
