@@ -57,7 +57,7 @@ and upload it in the Plugins area. Updating is then yours to do by hand.
 
 Either way, pick the layout and a theme under Settings → Appearance.
 
-Requires Termix 26.11.3 or newer (26.11.3-beta.1 works), with "Community layouts and themes" turned on under Plugins → Registries.
+Requires Termix 26.11.3 or newer, with "Community layouts and themes" turned on under Plugins → Registries.
 
 ## Build
 
